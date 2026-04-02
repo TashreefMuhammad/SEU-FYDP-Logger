@@ -1,24 +1,96 @@
-import Database from 'better-sqlite3'
 import { app } from 'electron'
 import path from 'path'
 import fs from 'fs'
+import initSqlJs, { type Database } from 'sql.js'
 
-let db: Database.Database
+let _db: Database
+let _dbPath: string
 
-export function getDb(): Database.Database {
-  if (!db) {
-    const userDataPath = app.getPath('userData')
-    const dbPath = path.join(userDataPath, 'fydp-logger.db')
-    db = new Database(dbPath)
-    db.pragma('journal_mode = WAL')
-    db.pragma('foreign_keys = ON')
-    initSchema(db)
+// ── Init ──────────────────────────────────────────────────────────────────────
+
+export async function initDb(): Promise<void> {
+  // Dev: wasm in node_modules. Packaged app: copied to resourcesPath via extraResources in package.json.
+  const wasmPath = app.isPackaged
+    ? path.join(process.resourcesPath, 'sql-wasm.wasm')
+    : path.join(__dirname, '../../node_modules/sql.js/dist/sql-wasm.wasm')
+
+  const SQL = await initSqlJs({ wasmBinary: fs.readFileSync(wasmPath) })
+
+  _dbPath = path.join(app.getPath('userData'), 'fydp-logger.db')
+
+  if (fs.existsSync(_dbPath)) {
+    const buf = fs.readFileSync(_dbPath)
+    _db = new SQL.Database(buf)
+  } else {
+    _db = new SQL.Database()
   }
-  return db
+
+  _db.run('PRAGMA foreign_keys = ON')
+  initSchema()
+  persist()
 }
 
-function initSchema(db: Database.Database): void {
-  db.exec(`
+// ── Persistence ───────────────────────────────────────────────────────────────
+
+function persist(): void {
+  const data = _db.export()
+  fs.writeFileSync(_dbPath, Buffer.from(data))
+}
+
+// ── Query helpers ─────────────────────────────────────────────────────────────
+
+export function all(sql: string, params: any[] = []): any[] {
+  const stmt = _db.prepare(sql)
+  if (params.length) stmt.bind(params)
+  const rows: any[] = []
+  while (stmt.step()) rows.push(stmt.getAsObject())
+  stmt.free()
+  return rows
+}
+
+export function get(sql: string, params: any[] = []): any {
+  return all(sql, params)[0] ?? null
+}
+
+// Runs a statement, persists to disk, returns last insert rowid
+export function run(sql: string, params: any[] = []): number {
+  _db.run(sql, params)
+  const res = _db.exec('SELECT last_insert_rowid()')
+  const id = (res[0]?.values[0]?.[0] as number) ?? 0
+  persist()
+  return id
+}
+
+// Same but does NOT persist — use inside transaction() only
+export function runTx(sql: string, params: any[] = []): number {
+  _db.run(sql, params)
+  const res = _db.exec('SELECT last_insert_rowid()')
+  return (res[0]?.values[0]?.[0] as number) ?? 0
+}
+
+export function transaction(fn: () => void): void {
+  _db.run('BEGIN TRANSACTION')
+  try {
+    fn()
+    _db.run('COMMIT')
+    persist()
+  } catch (e) {
+    _db.run('ROLLBACK')
+    throw e
+  }
+}
+
+export function closeDb(): void {
+  if (_db) {
+    persist()
+    _db.close()
+  }
+}
+
+// ── Schema ────────────────────────────────────────────────────────────────────
+
+function initSchema(): void {
+  _db.exec(`
     CREATE TABLE IF NOT EXISTS faculty (
       id INTEGER PRIMARY KEY CHECK (id = 1),
       name TEXT NOT NULL,
@@ -86,10 +158,4 @@ function initSchema(db: Database.Database): void {
       value TEXT NOT NULL
     );
   `)
-}
-
-export function closeDb(): void {
-  if (db) {
-    db.close()
-  }
 }

@@ -10,11 +10,10 @@
     "build": "electron-vite build",
     "preview": "electron-vite preview",
     "dist": "npm run build && electron-builder",
-    "postinstall": "electron-rebuild -f -w better-sqlite3"
+    "postinstall": ""
   },
   "devDependencies": {
     "@electron-toolkit/tsconfig": "^1.0.1",
-    "@types/better-sqlite3": "^7.6.8",
     "@types/node": "^20.11.5",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
@@ -22,7 +21,6 @@
     "autoprefixer": "^10.4.17",
     "electron": "^28.2.0",
     "electron-builder": "^24.9.1",
-    "electron-rebuild": "^3.2.9",
     "electron-vite": "^2.0.0",
     "postcss": "^8.4.33",
     "tailwindcss": "^3.4.1",
@@ -33,7 +31,7 @@
     "@electron-toolkit/preload": "^3.0.0",
     "@electron-toolkit/utils": "^3.0.0",
     "@google/generative-ai": "^0.3.1",
-    "better-sqlite3": "^9.4.3",
+    "sql.js": "^1.11.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "echarts": "^5.4.3",
@@ -68,6 +66,10 @@
       {
         "from": "resources/",
         "to": "resources/"
+      },
+      {
+        "from": "node_modules/sql.js/dist/sql-wasm.wasm",
+        "to": "sql-wasm.wasm"
       }
     ]
   }
