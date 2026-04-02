@@ -104,6 +104,7 @@ export default function Dashboard() {
               <thead>
                 <tr className="border-b border-gray-100 bg-gray-50">
                   <th className="text-left px-6 py-3 font-medium text-gray-500">Group</th>
+                  <th className="text-left px-6 py-3 font-medium text-gray-500">Course</th>
                   <th className="text-left px-6 py-3 font-medium text-gray-500">Project Title</th>
                   <th className="text-left px-6 py-3 font-medium text-gray-500">Semester</th>
                   <th className="text-left px-6 py-3 font-medium text-gray-500">Created</th>
@@ -114,15 +115,16 @@ export default function Dashboard() {
                 {groups.map((g) => (
                   <tr key={g.id} className="border-b border-gray-50 hover:bg-gray-50">
                     <td className="px-6 py-3 font-medium text-gray-900">{g.group_name}</td>
+                    <td className="px-6 py-3">
+                      {g.course_code
+                        ? <Badge variant="info">{g.course_code}</Badge>
+                        : <span className="text-gray-300">—</span>}
+                    </td>
                     <td className="px-6 py-3 text-gray-600 max-w-[220px] truncate">
                       {g.project_title || <span className="text-gray-300">—</span>}
                     </td>
-                    <td className="px-6 py-3">
-                      {g.semester ? (
-                        <Badge variant="info">{g.semester}</Badge>
-                      ) : (
-                        <span className="text-gray-300">—</span>
-                      )}
+                    <td className="px-6 py-3 text-gray-600">
+                      {g.semester || <span className="text-gray-300">—</span>}
                     </td>
                     <td className="px-6 py-3 text-gray-500">{formatDate(g.created_at)}</td>
                     <td className="px-6 py-3">

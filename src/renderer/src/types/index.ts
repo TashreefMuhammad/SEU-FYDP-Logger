@@ -9,10 +9,19 @@ export interface Faculty {
   updated_at: string
 }
 
+export const FYDP_COURSES = [
+  { code: 'CSE460', title: 'Final Year Design Project I' },
+  { code: 'CSE461', title: 'Final Year Design Project II' },
+  { code: 'CSE462', title: 'Final Year Design Project III' }
+] as const
+
+export type FYDPCourseCode = 'CSE460' | 'CSE461' | 'CSE462'
+
 export interface Group {
   id: number
   group_name: string
   project_title: string
+  course_code: FYDPCourseCode | ''
   semester: string
   academic_year: string
   created_at: string

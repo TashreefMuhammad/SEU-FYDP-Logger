@@ -27,6 +27,7 @@ export async function initDb(): Promise<void> {
 
   _db.run('PRAGMA foreign_keys = ON')
   initSchema()
+  migrate()
   persist()
 }
 
@@ -89,6 +90,11 @@ export function closeDb(): void {
 
 // ── Schema ────────────────────────────────────────────────────────────────────
 
+// Runs once on startup — safely adds new columns to existing databases
+function migrate(): void {
+  try { _db.exec('ALTER TABLE groups ADD COLUMN course_code TEXT') } catch { /* already exists */ }
+}
+
 function initSchema(): void {
   _db.exec(`
     CREATE TABLE IF NOT EXISTS faculty (
@@ -106,6 +112,7 @@ function initSchema(): void {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       group_name TEXT NOT NULL,
       project_title TEXT,
+      course_code TEXT,
       semester TEXT,
       academic_year TEXT,
       created_at TEXT DEFAULT CURRENT_TIMESTAMP

@@ -1,10 +1,10 @@
 import { ipcMain } from 'electron'
-import { getDb } from '../db'
+import { all } from '../db'
 
 export function registerGeminiHandlers(): void {
   ipcMain.handle('gemini:generate', async (_e, type: string, payload: any) => {
     const settings = Object.fromEntries(
-      (getDb().prepare('SELECT key, value FROM settings').all() as any[]).map((r) => [r.key, r.value])
+      all('SELECT key, value FROM settings').map((r: any) => [r.key, r.value])
     )
     const apiKey: string = settings['gemini_api_key'] ?? ''
     if (!apiKey) throw new Error('Gemini API key not configured. Go to Settings to add it.')
@@ -12,7 +12,7 @@ export function registerGeminiHandlers(): void {
     // Lazy-load to keep it out of the main bundle until needed
     const { GoogleGenerativeAI } = await import('@google/generative-ai')
     const genAI = new GoogleGenerativeAI(apiKey)
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' })
 
     const prompt = buildPrompt(type, payload)
     const result = await model.generateContent(prompt)

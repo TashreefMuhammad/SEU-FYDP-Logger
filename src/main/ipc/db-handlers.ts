@@ -31,16 +31,16 @@ export function registerDbHandlers(): void {
 
   ipcMain.handle('groups:create', (_e, data) => {
     const id = run(
-      `INSERT INTO groups (group_name, project_title, semester, academic_year) VALUES (?,?,?,?)`,
-      [data.group_name, data.project_title, data.semester, data.academic_year]
+      `INSERT INTO groups (group_name, project_title, course_code, semester, academic_year) VALUES (?,?,?,?,?)`,
+      [data.group_name, data.project_title, data.course_code, data.semester, data.academic_year]
     )
     return get('SELECT * FROM groups WHERE id = ?', [id])
   })
 
   ipcMain.handle('groups:update', (_e, id, data) => {
     run(
-      `UPDATE groups SET group_name=?, project_title=?, semester=?, academic_year=? WHERE id=?`,
-      [data.group_name, data.project_title, data.semester, data.academic_year, id]
+      `UPDATE groups SET group_name=?, project_title=?, course_code=?, semester=?, academic_year=? WHERE id=?`,
+      [data.group_name, data.project_title, data.course_code, data.semester, data.academic_year, id]
     )
     return get('SELECT * FROM groups WHERE id = ?', [id])
   })

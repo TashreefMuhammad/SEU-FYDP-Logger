@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useStore } from '@/lib/store'
 import type { Group, Student } from '@/types'
+import { FYDP_COURSES } from '@/types'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -21,9 +22,12 @@ import {
 type GroupForm = Omit<Group, 'id' | 'created_at'>
 type StudentForm = Omit<Student, 'id'>
 
+const SEU_STUDENT_ID_REGEX = /^\d{13}$/
+
 const emptyGroup: GroupForm = {
   group_name: '',
   project_title: '',
+  course_code: '',
   semester: '',
   academic_year: ''
 }
@@ -70,7 +74,7 @@ export default function GroupSetup() {
 
   const openEditGroup = (g: Group) => {
     setEditingGroup(g)
-    setGroupForm({ group_name: g.group_name, project_title: g.project_title, semester: g.semester, academic_year: g.academic_year })
+    setGroupForm({ group_name: g.group_name, project_title: g.project_title, course_code: g.course_code ?? '', semester: g.semester, academic_year: g.academic_year })
     setGroupError('')
     setGroupDialog(true)
   }
@@ -116,6 +120,10 @@ export default function GroupSetup() {
   const saveStudent = async () => {
     if (!studentForm.student_id.trim() || !studentForm.name.trim()) {
       setStudentError('Student ID and Name are required.')
+      return
+    }
+    if (!SEU_STUDENT_ID_REGEX.test(studentForm.student_id.trim())) {
+      setStudentError('Student ID must be exactly 13 digits (e.g. 2021160001234).')
       return
     }
     if (editingStudent) {
@@ -171,7 +179,8 @@ export default function GroupSetup() {
                     )}
                   </div>
                   <div className="flex items-center gap-2">
-                    {g.semester && <Badge variant="info">{g.semester}</Badge>}
+                    {g.course_code && <Badge variant="info">{g.course_code}</Badge>}
+                    {g.semester && <Badge>{g.semester}</Badge>}
                     {g.academic_year && <Badge>{g.academic_year}</Badge>}
                   </div>
                   <div className="flex gap-1 ml-2" onClick={(e) => e.stopPropagation()}>
@@ -255,6 +264,21 @@ export default function GroupSetup() {
             onChange={(e) => setGroupForm({ ...groupForm, project_title: e.target.value })}
             placeholder="e.g. Smart Home Automation System"
           />
+          <div className="flex flex-col gap-1">
+            <label className="text-sm font-medium text-gray-700">Course *</label>
+            <select
+              value={groupForm.course_code}
+              onChange={(e) => setGroupForm({ ...groupForm, course_code: e.target.value as any })}
+              className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">— Select course —</option>
+              {FYDP_COURSES.map((c) => (
+                <option key={c.code} value={c.code}>
+                  {c.code}: {c.title}
+                </option>
+              ))}
+            </select>
+          </div>
           <div className="grid grid-cols-2 gap-4">
             <Input
               label="Semester"
@@ -286,12 +310,16 @@ export default function GroupSetup() {
       >
         <div className="flex flex-col gap-4">
           {studentError && <Alert variant="error">{studentError}</Alert>}
-          <Input
-            label="Student ID *"
-            value={studentForm.student_id}
-            onChange={(e) => setStudentForm({ ...studentForm, student_id: e.target.value })}
-            placeholder="e.g. 2021-1-60-123"
-          />
+          <div className="flex flex-col gap-1">
+            <Input
+              label="Student ID * (13 digits)"
+              value={studentForm.student_id}
+              onChange={(e) => setStudentForm({ ...studentForm, student_id: e.target.value.replace(/\D/g, '').slice(0, 13) })}
+              placeholder="e.g. 2021160001234"
+              maxLength={13}
+            />
+            <p className="text-xs text-gray-400">Digits only · exactly 13 characters</p>
+          </div>
           <Input
             label="Full Name *"
             value={studentForm.name}
