@@ -17,6 +17,7 @@ export default function Settings() {
     email: ''
   })
   const [apiKey, setApiKey] = useState('')
+  const [geminiModel, setGeminiModel] = useState('gemini-1.5-flash')
   const [showKey, setShowKey] = useState(false)
   const [saved, setSaved] = useState(false)
   const [keySaved, setKeySaved] = useState(false)
@@ -35,6 +36,7 @@ export default function Settings() {
     window.api.getSettings().then((s) => {
       setSettings(s)
       setApiKey(s.gemini_api_key ?? '')
+      setGeminiModel(s.gemini_model ?? 'gemini-1.5-flash')
     })
   }, [faculty])
 
@@ -47,6 +49,7 @@ export default function Settings() {
 
   const handleSaveApiKey = async () => {
     await window.api.setSetting('gemini_api_key', apiKey.trim())
+    await window.api.setSetting('gemini_model', geminiModel.trim())
     setKeySaved(true)
     setTimeout(() => setKeySaved(false), 2000)
   }
@@ -150,6 +153,29 @@ export default function Settings() {
             >
               {showKey ? <EyeOff size={16} /> : <Eye size={16} />}
             </button>
+          </div>
+
+          <div className="flex flex-col gap-1">
+            <Input
+              label="Gemini Model"
+              value={geminiModel}
+              onChange={(e) => setGeminiModel(e.target.value)}
+              placeholder="e.g. gemini-1.5-flash"
+            />
+            <p className="text-xs text-gray-400">
+              Check{' '}
+              <a
+                href="#"
+                onClick={(e) => { e.preventDefault(); (window as any).electron?.shell?.openExternal('https://aistudio.google.com') }}
+                className="underline text-blue-500"
+              >
+                Google AI Studio
+              </a>
+              {' '}for models available to your account. Common options:{' '}
+              <code className="bg-gray-100 px-1 rounded text-xs">gemini-1.5-flash</code>,{' '}
+              <code className="bg-gray-100 px-1 rounded text-xs">gemini-2.0-flash</code>,{' '}
+              <code className="bg-gray-100 px-1 rounded text-xs">gemini-2.5-flash-preview-04-17</code>
+            </p>
           </div>
 
           <div className="flex items-center gap-3">

@@ -9,10 +9,14 @@ export function registerGeminiHandlers(): void {
     const apiKey: string = settings['gemini_api_key'] ?? ''
     if (!apiKey) throw new Error('Gemini API key not configured. Go to Settings to add it.')
 
-    // Lazy-load to keep it out of the main bundle until needed
+    const modelName: string = settings['gemini_model'] ?? 'gemini-1.5-flash'
+
     const { GoogleGenerativeAI } = await import('@google/generative-ai')
     const genAI = new GoogleGenerativeAI(apiKey)
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' })
+    const model = genAI.getGenerativeModel(
+      { model: modelName },
+      { apiVersion: 'v1beta' }
+    )
 
     const prompt = buildPrompt(type, payload)
     const result = await model.generateContent(prompt)
