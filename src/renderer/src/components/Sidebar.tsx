@@ -1,6 +1,8 @@
 import { NavLink } from 'react-router-dom'
 import { cn } from '@/lib/utils'
 import { useStore } from '@/lib/store'
+import { toast } from '@/lib/toast'
+import { useState } from 'react'
 import {
   LayoutDashboard,
   Users,
@@ -9,7 +11,8 @@ import {
   BarChart3,
   ArrowLeftRight,
   Settings,
-  GraduationCap
+  GraduationCap,
+  RefreshCw
 } from 'lucide-react'
 
 const navItems = [
@@ -24,6 +27,16 @@ const navItems = [
 
 export function Sidebar() {
   const faculty = useStore((s) => s.faculty)
+  const refresh = useStore((s) => s.refresh)
+  const refreshedAt = useStore((s) => s.refreshedAt)
+  const [spinning, setSpinning] = useState(false)
+
+  const doRefresh = () => {
+    setSpinning(true)
+    refresh()
+    toast.info('Reloaded from the database.')
+    setTimeout(() => setSpinning(false), 600)
+  }
 
   return (
     <aside className="w-56 shrink-0 bg-blue-900 text-white flex flex-col h-full">
@@ -59,6 +72,24 @@ export function Sidebar() {
           </NavLink>
         ))}
       </nav>
+
+      {/* Global refresh — re-queries every page from the database on demand */}
+      <div className="px-2 pb-2">
+        <button
+          onClick={doRefresh}
+          title="Reload all data from the database"
+          className="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm text-blue-200 transition-colors hover:bg-blue-800 hover:text-white"
+        >
+          <RefreshCw size={16} className={spinning ? 'animate-spin' : undefined} />
+          Refresh data
+        </button>
+        {refreshedAt && (
+          <p className="px-3 pt-1 text-[10px] text-blue-400">
+            Last refreshed{' '}
+            {new Date(refreshedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+          </p>
+        )}
+      </div>
 
       {/* Faculty info at bottom */}
       {faculty && (

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useStore } from '@/lib/store'
+import { runAction, runLoad } from '@/lib/toast'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -33,7 +34,8 @@ export default function Settings() {
         email: faculty.email ?? ''
       })
     }
-    window.api.getSettings().then((s) => {
+    runLoad('settings', () => window.api.getSettings()).then((s) => {
+      if (!s) return
       setSettings(s)
       setApiKey(s.gemini_api_key ?? '')
       setGeminiModel(s.gemini_model ?? 'gemini-1.5-flash')
@@ -41,15 +43,19 @@ export default function Settings() {
   }, [faculty])
 
   const handleSaveFaculty = async () => {
-    const result = await window.api.saveFaculty(form)
+    const result = await runAction('Profile saved.', () => window.api.saveFaculty(form))
+    if (result === undefined) return
     setFaculty(result)
     setSaved(true)
     setTimeout(() => setSaved(false), 2000)
   }
 
   const handleSaveApiKey = async () => {
-    await window.api.setSetting('gemini_api_key', apiKey.trim())
-    await window.api.setSetting('gemini_model', geminiModel.trim())
+    const ok = await runAction('API settings saved.', async () => {
+      await window.api.setSetting('gemini_api_key', apiKey.trim())
+      await window.api.setSetting('gemini_model', geminiModel.trim())
+    })
+    if (ok === undefined) return
     setKeySaved(true)
     setTimeout(() => setKeySaved(false), 2000)
   }

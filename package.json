@@ -1,6 +1,6 @@
 {
   "name": "seu-fydp-logger",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "FYDP Supervision Log & Report Tool — Southeast University, Bangladesh",
   "main": "out/main/index.js",
   "author": "Southeast University CSE",

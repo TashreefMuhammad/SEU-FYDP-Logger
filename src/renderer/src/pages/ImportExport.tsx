@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { useStore } from '@/lib/store'
+import { describeError, toast } from '@/lib/toast'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Alert } from '@/components/ui/alert'
@@ -6,6 +8,7 @@ import { Download, Upload, FileJson, Shield, RefreshCw } from 'lucide-react'
 
 export default function ImportExport() {
   const [status, setStatus] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
+  const refresh = useStore((s) => s.refresh)
   const [loading, setLoading] = useState<'export' | 'import' | null>(null)
 
   const handleExport = async () => {
@@ -15,11 +18,15 @@ export default function ImportExport() {
       const result = await window.api.exportToJson()
       if (result.success) {
         setStatus({ type: 'success', message: `Exported to: ${result.path}` })
+        toast.success('Data exported to JSON.')
       } else if (result.message !== 'Cancelled') {
         setStatus({ type: 'error', message: result.message ?? 'Export failed.' })
+        toast.error(result.message ?? 'Export failed.')
       }
     } catch (e: any) {
-      setStatus({ type: 'error', message: e.message })
+      const info = describeError(e)
+      setStatus({ type: 'error', message: info.message })
+      toast.error(info.message, info.detail)
     } finally {
       setLoading(null)
     }
@@ -31,15 +38,17 @@ export default function ImportExport() {
     try {
       const result = await window.api.importFromJson()
       if (result.success) {
-        setStatus({
-          type: 'success',
-          message: 'Data imported successfully. Refresh the app to see changes (Ctrl+R).'
-        })
+        setStatus({ type: 'success', message: 'Data imported successfully.' })
+        toast.success('Import complete — all pages reloaded.')
+        refresh()
       } else if (result.message !== 'Cancelled') {
         setStatus({ type: 'error', message: result.message ?? 'Import failed.' })
+        toast.error(result.message ?? 'Import failed.')
       }
     } catch (e: any) {
-      setStatus({ type: 'error', message: e.message })
+      const info = describeError(e)
+      setStatus({ type: 'error', message: info.message })
+      toast.error(info.message, info.detail)
     } finally {
       setLoading(null)
     }

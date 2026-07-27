@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useStore } from '@/lib/store'
+import { describeError, runAction, runLoad, toast } from '@/lib/toast'
 import type { Group, Report } from '@/types'
 import { formatDate } from '@/lib/utils'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -32,6 +33,7 @@ const REPORT_TYPES = [
 
 export default function Reports() {
   const { groups, faculty } = useStore()
+  const refreshTick = useStore((s) => s.refreshTick)
   const [selectedGroupId, setSelectedGroupId] = useState<number | null>(null)
   const [reports, setReports] = useState<Report[]>([])
   const [generating, setGenerating] = useState<string | null>(null)
@@ -47,10 +49,11 @@ export default function Reports() {
 
   useEffect(() => {
     if (selectedGroupId) loadReports(selectedGroupId)
-  }, [selectedGroupId])
+  }, [selectedGroupId, refreshTick])
 
   const loadReports = async (groupId: number) => {
-    const r = await window.api.getReportsByGroup(groupId)
+    const r = await runLoad('reports', () => window.api.getReportsByGroup(groupId))
+    if (!r) return
     setReports(r)
     await buildChartData(groupId)
   }
@@ -107,8 +110,11 @@ export default function Reports() {
         generated_content: content
       })
       setReports((prev) => [saved, ...prev])
+      toast.success('Report generated.')
     } catch (e: any) {
-      setError(e.message ?? 'Failed to generate report.')
+      const info = describeError(e)
+      setError(info.message)
+      toast.error(`Report generation failed: ${info.message}`, info.detail)
     } finally {
       setGenerating(null)
     }
@@ -122,7 +128,10 @@ export default function Reports() {
 
   const saveEdit = async () => {
     if (!editingReport) return
-    await window.api.updateReportEdited(editingReport.id, editContent)
+    const ok = await runAction('Report saved.', () =>
+      window.api.updateReportEdited(editingReport.id, editContent)
+    )
+    if (ok === undefined) return
     setReports((prev) =>
       prev.map((r) => (r.id === editingReport.id ? { ...r, edited_content: editContent } : r))
     )
@@ -131,18 +140,33 @@ export default function Reports() {
 
   const deleteReport = async (id: number) => {
     if (!confirm('Delete this report?')) return
-    await window.api.deleteReport(id)
+    const ok = await runAction('Report deleted.', () => window.api.deleteReport(id))
+    if (ok === undefined) return
     setReports((prev) => prev.filter((r) => r.id !== id))
   }
 
   const exportReport = async (r: Report) => {
-    const result = await window.api.exportReportAsHtml(r.id)
-    if (!result.success && result.message !== 'Cancelled') setError(result.message ?? 'Export failed.')
+    const result = await runAction('Report exported as HTML.', () =>
+      window.api.exportReportAsHtml(r.id), { silent: true }
+    )
+    if (!result) return
+    if (result.success) toast.success(`Saved to ${result.path}`)
+    else if (result.message !== 'Cancelled') {
+      setError(result.message ?? 'Export failed.')
+      toast.error(result.message ?? 'Export failed.')
+    }
   }
 
   const exportReportPdf = async (r: Report) => {
-    const result = await window.api.exportReportAsPdf(r.id)
-    if (!result.success && result.message !== 'Cancelled') setError(result.message ?? 'Export failed.')
+    const result = await runAction('Report exported as PDF.', () =>
+      window.api.exportReportAsPdf(r.id), { silent: true }
+    )
+    if (!result) return
+    if (result.success) toast.success(`Saved to ${result.path}`)
+    else if (result.message !== 'Cancelled') {
+      setError(result.message ?? 'Export failed.')
+      toast.error(result.message ?? 'Export failed.')
+    }
   }
 
   const selectedGroup = groups.find((g) => g.id === selectedGroupId)

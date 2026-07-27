@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useStore } from '@/lib/store'
+import { runAction, runLoad, toast } from '@/lib/toast'
 import type { Group, LogSession, StudentLog } from '@/types'
 import { formatDate, todayIso } from '@/lib/utils'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -24,6 +25,7 @@ import {
 export default function LogSession() {
   const [searchParams] = useSearchParams()
   const { groups, setGroups } = useStore()
+  const refreshTick = useStore((s) => s.refreshTick)
   const [selectedGroupId, setSelectedGroupId] = useState<number | null>(
     searchParams.get('group') ? Number(searchParams.get('group')) : null
   )
@@ -48,21 +50,22 @@ export default function LogSession() {
   })
 
   useEffect(() => {
-    window.api.getGroups().then(setGroups)
-  }, [])
+    runLoad('groups', () => window.api.getGroups()).then((g) => g && setGroups(g))
+  }, [refreshTick])
 
   useEffect(() => {
     if (selectedGroupId) loadSessions(selectedGroupId)
-  }, [selectedGroupId])
+    if (expandedSessionId !== null) loadStudentLogs(expandedSessionId)
+  }, [selectedGroupId, refreshTick])
 
   const loadSessions = async (groupId: number) => {
-    const s = await window.api.getSessionsByGroup(groupId)
-    setSessions(s)
+    const s = await runLoad('sessions', () => window.api.getSessionsByGroup(groupId))
+    if (s) setSessions(s)
   }
 
   const loadStudentLogs = async (sessionId: number) => {
-    const logs = await window.api.getStudentLogsBySession(sessionId)
-    setStudentLogs((prev) => ({ ...prev, [sessionId]: logs }))
+    const logs = await runLoad('session log', () => window.api.getStudentLogsBySession(sessionId))
+    if (logs) setStudentLogs((prev) => ({ ...prev, [sessionId]: logs }))
   }
 
   const toggleSession = (id: number) => {
@@ -111,9 +114,19 @@ export default function LogSession() {
     }
     setSessionError('')
     if (editingSession) {
-      await window.api.updateSession(editingSession.id, { ...sessionForm, group_id: selectedGroupId })
+      const ok = await runAction(
+        'Session updated.',
+        () => window.api.updateSession(editingSession.id, { ...sessionForm, group_id: selectedGroupId }),
+        { onError: (i) => setSessionError(i.message) }
+      )
+      if (ok === undefined) return
     } else {
-      const created = await window.api.createSession({ ...sessionForm, group_id: selectedGroupId })
+      const created = await runAction(
+        'Session logged.',
+        () => window.api.createSession({ ...sessionForm, group_id: selectedGroupId }),
+        { onError: (i) => setSessionError(i.message) }
+      )
+      if (created === undefined) return
       setExpandedSessionId(created.id)
     }
     await loadSessions(selectedGroupId)
@@ -123,7 +136,8 @@ export default function LogSession() {
   const deleteSession = async (id: number, e: React.MouseEvent) => {
     e.stopPropagation()
     if (!confirm('Delete this session and all its log entries?')) return
-    await window.api.deleteSession(id)
+    const ok = await runAction('Session deleted.', () => window.api.deleteSession(id))
+    if (ok === undefined) return
     if (selectedGroupId) await loadSessions(selectedGroupId)
     if (expandedSessionId === id) setExpandedSessionId(null)
   }
@@ -141,15 +155,21 @@ export default function LogSession() {
   const saveLog = async (log: StudentLog) => {
     const key = `${log.session_id}_${log.student_id}`
     setSavingLog((p) => ({ ...p, [key]: true }))
-    await window.api.saveStudentLog({
-      session_id: log.session_id,
-      student_id: log.student_id,
-      present: !!log.present,
-      work_done: log.work_done,
-      work_planned: log.work_planned,
-      faculty_notes: log.faculty_notes
-    })
+    const ok = await runAction(
+      'Entry saved.',
+      () =>
+        window.api.saveStudentLog({
+          session_id: log.session_id,
+          student_id: log.student_id,
+          present: !!log.present,
+          work_done: log.work_done,
+          work_planned: log.work_planned,
+          faculty_notes: log.faculty_notes
+        }),
+      { silent: true }
+    )
     setSavingLog((p) => ({ ...p, [key]: false }))
+    if (ok === undefined) return
     setSavedLog((p) => ({ ...p, [key]: true }))
     setTimeout(() => setSavedLog((p) => ({ ...p, [key]: false })), 1500)
   }
@@ -157,6 +177,7 @@ export default function LogSession() {
   const saveAllLogs = async (sessionId: number) => {
     const logs = studentLogs[sessionId] ?? []
     for (const log of logs) await saveLog(log)
+    toast.success(`Saved ${logs.length} entr${logs.length === 1 ? 'y' : 'ies'}.`)
   }
 
   return (

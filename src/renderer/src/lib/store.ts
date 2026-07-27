@@ -11,7 +11,11 @@ interface AppStore {
   studentLogs: StudentLog[]
   reports: Report[]
   settings: Settings
+  /** Bumped by the global Refresh button; pages watch it to re-query the database. */
+  refreshTick: number
+  refreshedAt: number | null
 
+  refresh: () => void
   setFaculty: (f: Faculty | null) => void
   setGroups: (g: Group[]) => void
   setSelectedGroupId: (id: number | null) => void
@@ -33,7 +37,10 @@ export const useStore = create<AppStore>((set) => ({
   studentLogs: [],
   reports: [],
   settings: {},
+  refreshTick: 0,
+  refreshedAt: null,
 
+  refresh: () => set((s) => ({ refreshTick: s.refreshTick + 1, refreshedAt: Date.now() })),
   setFaculty: (faculty) => set({ faculty }),
   setGroups: (groups) => set({ groups }),
   setSelectedGroupId: (selectedGroupId) => set({ selectedGroupId }),

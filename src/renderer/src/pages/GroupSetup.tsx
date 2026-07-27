@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useStore } from '@/lib/store'
+import { runAction, runLoad } from '@/lib/toast'
 import type { Group, Student } from '@/types'
 import { FYDP_COURSES } from '@/types'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -47,6 +48,7 @@ const emptyStudent = (groupId: number): StudentForm => ({
 
 export default function GroupSetup() {
   const { groups, setGroups, selectedGroupId, setSelectedGroupId, students, setStudents } = useStore()
+  const refreshTick = useStore((s) => s.refreshTick)
   const [expandedGroupId, setExpandedGroupId] = useState<number | null>(null)
   const [studentsByGroup, setStudentsByGroup] = useState<Record<number, Student[]>>({})
 
@@ -63,12 +65,13 @@ export default function GroupSetup() {
   const [studentError, setStudentError] = useState('')
 
   useEffect(() => {
-    window.api.getGroups().then(setGroups)
-  }, [])
+    runLoad('groups', () => window.api.getGroups()).then((g) => g && setGroups(g))
+    if (expandedGroupId !== null) loadStudents(expandedGroupId)
+  }, [refreshTick])
 
   const loadStudents = async (groupId: number) => {
-    const s = await window.api.getStudentsByGroup(groupId)
-    setStudentsByGroup((prev) => ({ ...prev, [groupId]: s }))
+    const s = await runLoad('students', () => window.api.getStudentsByGroup(groupId))
+    if (s) setStudentsByGroup((prev) => ({ ...prev, [groupId]: s }))
   }
 
   const toggleGroup = (id: number) => {
@@ -111,11 +114,14 @@ export default function GroupSetup() {
       setGroupError('Select the FYDP course — attendance sheets and course caps depend on it.')
       return
     }
-    if (editingGroup) {
-      await window.api.updateGroup(editingGroup.id, groupForm)
-    } else {
-      await window.api.createGroup(groupForm)
-    }
+    const ok = editingGroup
+      ? await runAction(`Group "${groupForm.group_name}" updated.`, () =>
+          window.api.updateGroup(editingGroup.id, groupForm)
+        )
+      : await runAction(`Group "${groupForm.group_name}" created.`, () =>
+          window.api.createGroup(groupForm)
+        )
+    if (ok === undefined) return
     const updated = await window.api.getGroups()
     setGroups(updated)
     setGroupDialog(false)
@@ -123,7 +129,10 @@ export default function GroupSetup() {
 
   const deleteGroup = async (g: Group) => {
     if (!confirm(`Delete group "${g.group_name}"? This will also remove all students and sessions.`)) return
-    await window.api.deleteGroup(g.id)
+    const ok = await runAction(`Group "${g.group_name}" deleted.`, () =>
+      window.api.deleteGroup(g.id)
+    )
+    if (ok === undefined) return
     const updated = await window.api.getGroups()
     setGroups(updated)
     if (expandedGroupId === g.id) setExpandedGroupId(null)
@@ -160,18 +169,24 @@ export default function GroupSetup() {
       setStudentError('Student ID must be exactly 13 digits (e.g. 2021160001234).')
       return
     }
-    if (editingStudent) {
-      await window.api.updateStudent(editingStudent.id, studentForm)
-    } else {
-      await window.api.addStudent(studentForm)
-    }
+    const ok = editingStudent
+      ? await runAction(`${studentForm.name} updated.`, () =>
+          window.api.updateStudent(editingStudent.id, studentForm), { onError: (i) => setStudentError(i.message) }
+        )
+      : await runAction(`${studentForm.name} added to the group.`, () =>
+          window.api.addStudent(studentForm), { onError: (i) => setStudentError(i.message) }
+        )
+    if (ok === undefined) return
     await loadStudents(studentForm.group_id)
     setStudentDialog(false)
   }
 
   const deleteStudent = async (s: Student) => {
     if (!confirm(`Remove "${s.name}" from group?`)) return
-    await window.api.deleteStudent(s.id)
+    const ok = await runAction(`${s.name} removed from the group.`, () =>
+      window.api.deleteStudent(s.id)
+    )
+    if (ok === undefined) return
     await loadStudents(s.group_id)
   }
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useStore } from '@/lib/store'
+import { describeError, runLoad, toast } from '@/lib/toast'
 import type { GroupAnalytics, PortfolioAnalytics, Flag, SignatureMode, StudentAnalytics } from '@/types'
 import { FYDP_COURSES } from '@/types'
 import { formatDate } from '@/lib/utils'
@@ -633,6 +634,7 @@ function PortfolioView({ p, onOpenGroup }: { p: PortfolioAnalytics; onOpenGroup:
 
 export default function Analysis() {
   const { groups, setGroups } = useStore()
+  const refreshTick = useStore((s) => s.refreshTick)
   const [tab, setTab] = useState<'portfolio' | 'group'>('portfolio')
   const [portfolio, setPortfolio] = useState<PortfolioAnalytics | null>(null)
   const [groupAnalysis, setGroupAnalysis] = useState<GroupAnalytics | null>(null)
@@ -649,20 +651,24 @@ export default function Analysis() {
 
   const load = async () => {
     setLoading(true)
-    const [p, g] = await Promise.all([window.api.getPortfolioAnalysis(), window.api.getGroups()])
-    setPortfolio(p)
-    setGroups(g)
+    const p = await runLoad('portfolio analysis', () => window.api.getPortfolioAnalysis())
+    const g = await runLoad('groups', () => window.api.getGroups())
+    if (p) setPortfolio(p)
+    if (g) setGroups(g)
     setLoading(false)
   }
 
   useEffect(() => {
     load()
-  }, [])
+  }, [refreshTick])
 
   useEffect(() => {
-    if (selectedGroupId) window.api.getGroupAnalysis(selectedGroupId).then(setGroupAnalysis)
+    if (selectedGroupId)
+      runLoad('group analysis', () => window.api.getGroupAnalysis(selectedGroupId)).then(
+        (a) => a && setGroupAnalysis(a)
+      )
     else setGroupAnalysis(null)
-  }, [selectedGroupId])
+  }, [selectedGroupId, refreshTick])
 
   const openGroup = (id: number) => {
     setSelectedGroupId(id)
@@ -674,11 +680,17 @@ export default function Analysis() {
     setBusy(key)
     try {
       const result = await fn()
-      if (result.success) setStatus({ type: 'success', message: `Saved to ${result.path}` })
-      else if (result.message !== 'Cancelled')
+      if (result.success) {
+        setStatus({ type: 'success', message: `Saved to ${result.path}` })
+        toast.success('Document generated.')
+      } else if (result.message !== 'Cancelled') {
         setStatus({ type: 'error', message: result.message ?? 'Generation failed.' })
+        toast.error(result.message ?? 'Generation failed.')
+      }
     } catch (e: any) {
-      setStatus({ type: 'error', message: e?.message ?? 'Generation failed.' })
+      const info = describeError(e)
+      setStatus({ type: 'error', message: info.message })
+      toast.error(`Could not generate the document: ${info.message}`, info.detail)
     } finally {
       setBusy(null)
     }

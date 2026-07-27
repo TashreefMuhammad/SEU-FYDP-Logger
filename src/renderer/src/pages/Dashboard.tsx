@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useStore } from '@/lib/store'
+import { runLoad } from '@/lib/toast'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -10,13 +11,16 @@ import type { PortfolioAnalytics } from '@/types'
 
 export default function Dashboard() {
   const { faculty, groups, setGroups, setFaculty } = useStore()
+  const refreshTick = useStore((s) => s.refreshTick)
   const [portfolio, setPortfolio] = useState<PortfolioAnalytics | null>(null)
 
   useEffect(() => {
-    window.api.getFaculty().then(setFaculty)
-    window.api.getGroups().then(setGroups)
-    window.api.getPortfolioAnalysis().then(setPortfolio)
-  }, [])
+    runLoad('profile', () => window.api.getFaculty()).then((f) => f !== undefined && setFaculty(f))
+    runLoad('groups', () => window.api.getGroups()).then((g) => g && setGroups(g))
+    runLoad('dashboard figures', () => window.api.getPortfolioAnalysis()).then(
+      (p) => p && setPortfolio(p)
+    )
+  }, [refreshTick])
 
   const totalGroups = groups.length
   const statFor = (id: number) => portfolio?.groups.find((g) => g.group.id === id)

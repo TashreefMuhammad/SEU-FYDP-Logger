@@ -16,6 +16,8 @@ Built as a practical workaround for faculty supervisors to log sessions, track a
 - **Comprehensive Supervision Dossier (PDF)** — The accreditation-facing document: portfolio summary, compliance matrix against the FYDP Guideline, per-group dossiers, risk register, evidence provenance, stated limitations, declaration and appendices
 - **AI Report Generation** — Narrative reports (attendance, progress, contribution analysis, overall summary) via the Gemini API, exportable as PDF or HTML
 - **JSON Import/Export** — Export all data as a portable `.json` file to work from home or share with a co-supervisor; import merges without data loss
+- **Feedback & error surfacing** — Every create, update and delete raises a brief confirmation in the top-right corner; failures raise a persistent card carrying the real database message, expandable and copyable for diagnosis. Uncaught exceptions anywhere in the interface are captured and shown the same way
+- **Refresh data** — A button in the sidebar re-queries every page from the database on demand, for when a change was made elsewhere (an import, a second window) and the screen is stale
 - **Faculty Profile** — Supervisor name, initials, designation appear on all generated documents
 
 ### Deterministic vs AI-generated
