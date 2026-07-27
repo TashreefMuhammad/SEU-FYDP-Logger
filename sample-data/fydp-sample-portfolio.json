@@ -1,0 +1,2791 @@
+{
+  "_meta": {
+    "exportedAt": "2026-07-27T09:00:00.000Z",
+    "version": "2.0",
+    "app": "SEU FYDP Logger",
+    "note": "Synthetic sample portfolio. All names, student codes, emails and phone numbers are invented."
+  },
+  "faculty": {
+    "name": "Md. Anwarul Haque",
+    "initials": "MAH",
+    "designation": "Assistant Professor",
+    "department": "Department of CSE",
+    "university": "Southeast University",
+    "email": "anwarul.haque@seu.edu.bd"
+  },
+  "groups": [
+    {
+      "group_name": "Group A1",
+      "project_title": "VERITAS-LENS: AI-Generated Text Detection and Authorship Verification",
+      "course_code": "CSE460",
+      "semester": "Spring 2026",
+      "academic_year": "2025-26",
+      "co_supervisor_name": null,
+      "co_supervisor_designation": null,
+      "min_required_sessions": 8,
+      "status": "active",
+      "students": [
+        {
+          "student_id": "2023100000103",
+          "name": "Arifur Rahman Shuvo",
+          "program": "B.Sc. in CSE",
+          "email": "2023100000103@seu.edu.bd",
+          "mobile": "+8801701234567"
+        },
+        {
+          "student_id": "2023100000120",
+          "name": "Tanjila Akter Mim",
+          "program": "B.Sc. in CSE",
+          "email": "2023100000120@seu.edu.bd",
+          "mobile": "+8801702469134"
+        },
+        {
+          "student_id": "2023100000137",
+          "name": "Sadman Sakib Niloy",
+          "program": "B.Sc. in CSE",
+          "email": "2023100000137@seu.edu.bd",
+          "mobile": "+8801703703701"
+        },
+        {
+          "student_id": "2023100000154",
+          "name": "Nusrat Jahan Oishi",
+          "program": "B.Sc. in CSE",
+          "email": "2023100000154@seu.edu.bd",
+          "mobile": "+8801704938268"
+        }
+      ],
+      "sessions": [
+        {
+          "log_date": "2026-04-21",
+          "next_log_date": "2026-05-05",
+          "venue": "Research Lab (6th floor)",
+          "start_time": "10:00",
+          "end_time": "11:00",
+          "duration_minutes": 60,
+          "topic": "Discussion on research topic",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2023100000103",
+              "student_name": "Arifur Rahman Shuvo",
+              "present": 1,
+              "work_done": "Wrote the ingestion script that pulls raw records into a versioned local store.",
+              "work_planned": "Document the dataset card, including collection method and known gaps.",
+              "faculty_notes": "Discussed the risk of relying on a single data source; agreed on a fallback."
+            },
+            {
+              "student_code": "2023100000120",
+              "student_name": "Tanjila Akter Mim",
+              "present": 1,
+              "work_done": "Debugged the class-imbalance issue that was suppressing recall on the minority class.",
+              "work_planned": "Profile the training step to find where the bottleneck sits.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000137",
+              "student_name": "Sadman Sakib Niloy",
+              "present": 1,
+              "work_done": "Produced the confusion matrix and identified the two dominant error modes.",
+              "work_planned": "Write up the error analysis section with the sampled examples.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000154",
+              "student_name": "Nusrat Jahan Oishi",
+              "present": 1,
+              "work_done": "Completed the systematic literature scan and tabulated twenty-two candidate works.",
+              "work_planned": "Proofread the full draft and run the similarity check.",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-05-05",
+          "next_log_date": "2026-05-12",
+          "venue": "Room 401",
+          "start_time": "11:00",
+          "end_time": "12:00",
+          "duration_minutes": 60,
+          "topic": "Finalizing the research idea",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2023100000103",
+              "student_name": "Arifur Rahman Shuvo",
+              "present": 1,
+              "work_done": "Cleaned and de-duplicated the collected corpus, dropping malformed records and normalising encoding.",
+              "work_planned": "Add a validation pass that rejects records failing the schema check.",
+              "faculty_notes": "Suggested reading two additional papers before finalising the approach."
+            },
+            {
+              "student_code": "2023100000120",
+              "student_name": "Tanjila Akter Mim",
+              "present": 1,
+              "work_done": "Ported the training loop to mixed precision to fit the model in available GPU memory.",
+              "work_planned": "Add early stopping and checkpoint recovery to the training script.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000137",
+              "student_name": "Sadman Sakib Niloy",
+              "present": 1,
+              "work_done": "Drafted the results tables and figures in the report format.",
+              "work_planned": "Extend the evaluation to the held-out out-of-distribution subset.",
+              "faculty_notes": "Suggested reading two additional papers before finalising the approach."
+            },
+            {
+              "student_code": "2023100000154",
+              "student_name": "Nusrat Jahan Oishi",
+              "present": 0,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-05-12",
+          "next_log_date": "2026-05-19",
+          "venue": "Faculty Room B",
+          "start_time": "12:00",
+          "end_time": "13:00",
+          "duration_minutes": 60,
+          "topic": "Idea finalization with methodology confirmation",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2023100000103",
+              "student_name": "Arifur Rahman Shuvo",
+              "present": 1,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": "Discussed the risk of relying on a single data source; agreed on a fallback."
+            },
+            {
+              "student_code": "2023100000120",
+              "student_name": "Tanjila Akter Mim",
+              "present": 1,
+              "work_done": "Tuned the learning-rate schedule and reduced the validation loss plateau.",
+              "work_planned": "Run the full hyper-parameter sweep and pick the configuration for the report.",
+              "faculty_notes": "Good improvement since the last session. Reminded to keep the log updated."
+            },
+            {
+              "student_code": "2023100000137",
+              "student_name": "Sadman Sakib Niloy",
+              "present": 1,
+              "work_done": "Set up the evaluation harness with fixed seeds so numbers are reproducible.",
+              "work_planned": "Cross-check the reported metrics against a second implementation.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000154",
+              "student_name": "Nusrat Jahan Oishi",
+              "present": 1,
+              "work_done": "Prepared the methodology chapter draft with the revised pipeline diagram.",
+              "work_planned": "Proofread the full draft and run the similarity check.",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-05-19",
+          "next_log_date": "2026-06-07",
+          "venue": "CSE Lab 2",
+          "start_time": "10:00",
+          "end_time": "11:00",
+          "duration_minutes": 60,
+          "topic": "Summary on literature review and experiment feasibility analysis",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2023100000103",
+              "student_name": "Arifur Rahman Shuvo",
+              "present": 1,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000120",
+              "student_name": "Tanjila Akter Mim",
+              "present": 1,
+              "work_done": "Ran an ablation over the two feature groups and tabulated the difference.",
+              "work_planned": "Add early stopping and checkpoint recovery to the training script.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000137",
+              "student_name": "Sadman Sakib Niloy",
+              "present": 1,
+              "work_done": "Ran the statistical significance test across the five seeds and recorded confidence intervals.",
+              "work_planned": "Extend the evaluation to the held-out out-of-distribution subset.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000154",
+              "student_name": "Nusrat Jahan Oishi",
+              "present": 1,
+              "work_done": "Reworked the problem statement after the feedback on scope.",
+              "work_planned": "Revise the related-work table to include the two recent papers found this week.",
+              "faculty_notes": "Progress on track; asked for the raw numbers to be committed alongside the notebook."
+            }
+          ]
+        },
+        {
+          "log_date": "2026-06-07",
+          "next_log_date": "2026-06-21",
+          "venue": "Room 401",
+          "start_time": "11:00",
+          "end_time": "12:00",
+          "duration_minutes": 60,
+          "topic": "Preparation of plan on progress deadlines",
+          "session_kind": "milestone",
+          "studentLogs": [
+            {
+              "student_code": "2023100000103",
+              "student_name": "Arifur Rahman Shuvo",
+              "present": 1,
+              "work_done": "Prepared the augmentation pipeline and checked that it does not leak across splits.",
+              "work_planned": "Finish annotating the remaining batch and freeze version 2 of the dataset.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000120",
+              "student_name": "Tanjila Akter Mim",
+              "present": 0,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000137",
+              "student_name": "Sadman Sakib Niloy",
+              "present": 1,
+              "work_done": "Built the error-analysis notebook and sampled failure cases for manual inspection.",
+              "work_planned": "Add per-class breakdown to the results table.",
+              "faculty_notes": "Asked to bring reproducible results next session, not screenshots."
+            },
+            {
+              "student_code": "2023100000154",
+              "student_name": "Nusrat Jahan Oishi",
+              "present": 1,
+              "work_done": "Completed the systematic literature scan and tabulated twenty-two candidate works.",
+              "work_planned": "Revise the related-work table to include the two recent papers found this week.",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-06-21",
+          "next_log_date": "2026-07-13",
+          "venue": "Room 401",
+          "start_time": "12:00",
+          "end_time": "13:00",
+          "duration_minutes": 60,
+          "topic": "Update on preparation for experimental setup",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2023100000103",
+              "student_name": "Arifur Rahman Shuvo",
+              "present": 1,
+              "work_done": "Prepared the augmentation pipeline and checked that it does not leak across splits.",
+              "work_planned": "Rerun the split with the new records and confirm class balance holds.",
+              "faculty_notes": "Progress on track; asked for the raw numbers to be committed alongside the notebook."
+            },
+            {
+              "student_code": "2023100000120",
+              "student_name": "Tanjila Akter Mim",
+              "present": 1,
+              "work_done": "Ported the training loop to mixed precision to fit the model in available GPU memory.",
+              "work_planned": "Compare against the second baseline mentioned in the literature review.",
+              "faculty_notes": "Progress on track; asked for the raw numbers to be committed alongside the notebook."
+            },
+            {
+              "student_code": "2023100000137",
+              "student_name": "Sadman Sakib Niloy",
+              "present": 1,
+              "work_done": "Set up the evaluation harness with fixed seeds so numbers are reproducible.",
+              "work_planned": "Extend the evaluation to the held-out out-of-distribution subset.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000154",
+              "student_name": "Nusrat Jahan Oishi",
+              "present": 1,
+              "work_done": "Drafted the abstract and introduction for internal review.",
+              "work_planned": "Revise the related-work table to include the two recent papers found this week.",
+              "faculty_notes": "Suggested reading two additional papers before finalising the approach."
+            }
+          ]
+        },
+        {
+          "log_date": "2026-07-13",
+          "next_log_date": "2026-07-15",
+          "venue": "Research Lab (6th floor)",
+          "start_time": "10:00",
+          "end_time": "11:00",
+          "duration_minutes": 60,
+          "topic": "Summarizing topics to prepare for presentation and report",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2023100000103",
+              "student_name": "Arifur Rahman Shuvo",
+              "present": 1,
+              "work_done": "Prepared the augmentation pipeline and checked that it does not leak across splits.",
+              "work_planned": "Add a validation pass that rejects records failing the schema check.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000120",
+              "student_name": "Tanjila Akter Mim",
+              "present": 1,
+              "work_done": "Debugged the class-imbalance issue that was suppressing recall on the minority class.",
+              "work_planned": "Compare against the second baseline mentioned in the literature review.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000137",
+              "student_name": "Sadman Sakib Niloy",
+              "present": 1,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": "Raised concern about uneven task distribution within the group."
+            },
+            {
+              "student_code": "2023100000154",
+              "student_name": "Nusrat Jahan Oishi",
+              "present": 0,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-07-15",
+          "next_log_date": "",
+          "venue": "Faculty Room B",
+          "start_time": "11:00",
+          "end_time": "12:00",
+          "duration_minutes": 60,
+          "topic": "Report and presentation preparation",
+          "session_kind": "presentation",
+          "studentLogs": [
+            {
+              "student_code": "2023100000103",
+              "student_name": "Arifur Rahman Shuvo",
+              "present": 1,
+              "work_done": "Built the train/validation/test split with stratification and documented the split policy.",
+              "work_planned": "Rerun the split with the new records and confirm class balance holds.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000120",
+              "student_name": "Tanjila Akter Mim",
+              "present": 1,
+              "work_done": "Tuned the learning-rate schedule and reduced the validation loss plateau.",
+              "work_planned": "Run the full hyper-parameter sweep and pick the configuration for the report.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000137",
+              "student_name": "Sadman Sakib Niloy",
+              "present": 1,
+              "work_done": "Produced the confusion matrix and identified the two dominant error modes.",
+              "work_planned": "Cross-check the reported metrics against a second implementation.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000154",
+              "student_name": "Nusrat Jahan Oishi",
+              "present": 1,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            }
+          ]
+        }
+      ],
+      "reports": []
+    },
+    {
+      "group_name": "Group A2",
+      "project_title": "Bangla Regional Dialect Recognition for Public Service Kiosks",
+      "course_code": "CSE460",
+      "semester": "Spring 2026",
+      "academic_year": "2025-26",
+      "co_supervisor_name": null,
+      "co_supervisor_designation": null,
+      "min_required_sessions": 8,
+      "status": "active",
+      "students": [
+        {
+          "student_id": "2023100000171",
+          "name": "Rakibul Hasan Emon",
+          "program": "B.Sc. in CSE",
+          "email": "2023100000171@seu.edu.bd",
+          "mobile": "+8801706172835"
+        },
+        {
+          "student_id": "2023100000188",
+          "name": "Farhana Yeasmin Ripa",
+          "program": "B.Sc. in CSE",
+          "email": "2023100000188@seu.edu.bd",
+          "mobile": "+8801707407402"
+        },
+        {
+          "student_id": "2023100000205",
+          "name": "Mahmudul Karim Adnan",
+          "program": "B.Sc. in CSE",
+          "email": "2023100000205@seu.edu.bd",
+          "mobile": "+8801708641969"
+        }
+      ],
+      "sessions": [
+        {
+          "log_date": "2026-04-22",
+          "next_log_date": "2026-05-05",
+          "venue": "Research Lab (6th floor)",
+          "start_time": "10:00",
+          "end_time": "11:00",
+          "duration_minutes": 60,
+          "topic": "Scoping the dialect set and defining the recognition task",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2023100000171",
+              "student_name": "Rakibul Hasan Emon",
+              "present": 1,
+              "work_done": "Built the train/validation/test split with stratification and documented the split policy.",
+              "work_planned": "Finish annotating the remaining batch and freeze version 2 of the dataset.",
+              "faculty_notes": "Progress on track; asked for the raw numbers to be committed alongside the notebook."
+            },
+            {
+              "student_code": "2023100000188",
+              "student_name": "Farhana Yeasmin Ripa",
+              "present": 1,
+              "work_done": "Tuned the learning-rate schedule and reduced the validation loss plateau.",
+              "work_planned": "Add early stopping and checkpoint recovery to the training script.",
+              "faculty_notes": "Progress on track; asked for the raw numbers to be committed alongside the notebook."
+            },
+            {
+              "student_code": "2023100000205",
+              "student_name": "Mahmudul Karim Adnan",
+              "present": 1,
+              "work_done": "Implemented caching so repeated queries do not re-run inference.",
+              "work_planned": "Prepare the deployment runbook for the final defence demo.",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-05-05",
+          "next_log_date": "2026-05-19",
+          "venue": "Room 401",
+          "start_time": "11:00",
+          "end_time": "12:00",
+          "duration_minutes": 60,
+          "topic": "Review of speech corpora available for Bangla dialects",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2023100000171",
+              "student_name": "Rakibul Hasan Emon",
+              "present": 1,
+              "work_done": "Built the train/validation/test split with stratification and documented the split policy.",
+              "work_planned": "Rerun the split with the new records and confirm class balance holds.",
+              "faculty_notes": "Advised to narrow scope — the current plan is too broad for the remaining weeks."
+            },
+            {
+              "student_code": "2023100000188",
+              "student_name": "Farhana Yeasmin Ripa",
+              "present": 1,
+              "work_done": "Ported the training loop to mixed precision to fit the model in available GPU memory.",
+              "work_planned": "Add early stopping and checkpoint recovery to the training script.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000205",
+              "student_name": "Mahmudul Karim Adnan",
+              "present": 0,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-05-19",
+          "next_log_date": "2026-06-02",
+          "venue": "Room 401",
+          "start_time": "12:00",
+          "end_time": "13:00",
+          "duration_minutes": 60,
+          "topic": "Recording protocol and consent procedure for field collection",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2023100000171",
+              "student_name": "Rakibul Hasan Emon",
+              "present": 1,
+              "work_done": "Extended the annotation guideline and re-annotated a disputed subset with a second annotator.",
+              "work_planned": "Finish annotating the remaining batch and freeze version 2 of the dataset.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000188",
+              "student_name": "Farhana Yeasmin Ripa",
+              "present": 0,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000205",
+              "student_name": "Mahmudul Karim Adnan",
+              "present": 0,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-06-02",
+          "next_log_date": "2026-06-17",
+          "venue": "Room 401",
+          "start_time": "10:00",
+          "end_time": "11:00",
+          "duration_minutes": 60,
+          "topic": "Feature extraction pipeline and baseline acoustic model",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2023100000171",
+              "student_name": "Rakibul Hasan Emon",
+              "present": 1,
+              "work_done": "Measured inter-annotator agreement on the pilot batch and summarised the disagreements.",
+              "work_planned": "Document the dataset card, including collection method and known gaps.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000188",
+              "student_name": "Farhana Yeasmin Ripa",
+              "present": 0,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000205",
+              "student_name": "Mahmudul Karim Adnan",
+              "present": 0,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-06-17",
+          "next_log_date": "2026-07-01",
+          "venue": "Research Lab (6th floor)",
+          "start_time": "11:00",
+          "end_time": "12:00",
+          "duration_minutes": 60,
+          "topic": "Mid-semester progress review against the submitted plan",
+          "session_kind": "milestone",
+          "studentLogs": [
+            {
+              "student_code": "2023100000171",
+              "student_name": "Rakibul Hasan Emon",
+              "present": 1,
+              "work_done": "Built the train/validation/test split with stratification and documented the split policy.",
+              "work_planned": "Document the dataset card, including collection method and known gaps.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000188",
+              "student_name": "Farhana Yeasmin Ripa",
+              "present": 1,
+              "work_done": "Ported the training loop to mixed precision to fit the model in available GPU memory.",
+              "work_planned": "Run the full hyper-parameter sweep and pick the configuration for the report.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000205",
+              "student_name": "Mahmudul Karim Adnan",
+              "present": 1,
+              "work_done": "Added request validation and error handling to the inference endpoint.",
+              "work_planned": "Add authentication and rate limiting before the demo.",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-07-01",
+          "next_log_date": "2026-07-15",
+          "venue": "Room 512",
+          "start_time": "12:00",
+          "end_time": "13:00",
+          "duration_minutes": 60,
+          "topic": "Kiosk interface requirements and offline inference constraints",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2023100000171",
+              "student_name": "Rakibul Hasan Emon",
+              "present": 1,
+              "work_done": "Cleaned and de-duplicated the collected corpus, dropping malformed records and normalising encoding.",
+              "work_planned": "Rerun the split with the new records and confirm class balance holds.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000188",
+              "student_name": "Farhana Yeasmin Ripa",
+              "present": 1,
+              "work_done": "Tuned the learning-rate schedule and reduced the validation loss plateau.",
+              "work_planned": "Add early stopping and checkpoint recovery to the training script.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000205",
+              "student_name": "Mahmudul Karim Adnan",
+              "present": 0,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-07-15",
+          "next_log_date": "",
+          "venue": "Room 401",
+          "start_time": "10:00",
+          "end_time": "11:00",
+          "duration_minutes": 60,
+          "topic": "Consolidation of results and report structure",
+          "session_kind": "presentation",
+          "studentLogs": [
+            {
+              "student_code": "2023100000171",
+              "student_name": "Rakibul Hasan Emon",
+              "present": 1,
+              "work_done": "Measured inter-annotator agreement on the pilot batch and summarised the disagreements.",
+              "work_planned": "Finish annotating the remaining batch and freeze version 2 of the dataset.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000188",
+              "student_name": "Farhana Yeasmin Ripa",
+              "present": 1,
+              "work_done": "Trained the baseline model and logged the run configuration for reproducibility.",
+              "work_planned": "Add early stopping and checkpoint recovery to the training script.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000205",
+              "student_name": "Mahmudul Karim Adnan",
+              "present": 1,
+              "work_done": "Implemented caching so repeated queries do not re-run inference.",
+              "work_planned": "Write the integration tests covering the three main user flows.",
+              "faculty_notes": "Raised concern about uneven task distribution within the group."
+            }
+          ]
+        }
+      ],
+      "reports": []
+    },
+    {
+      "group_name": "Group A3",
+      "project_title": "Rooftop Hydroponics Monitoring with Low-Cost IoT Sensors",
+      "course_code": "CSE460",
+      "semester": "Spring 2026",
+      "academic_year": "2025-26",
+      "co_supervisor_name": null,
+      "co_supervisor_designation": null,
+      "min_required_sessions": 8,
+      "status": "active",
+      "students": [
+        {
+          "student_id": "2023100000222",
+          "name": "Sumaiya Islam Prova",
+          "program": "B.Sc. in CSE",
+          "email": "2023100000222@seu.edu.bd",
+          "mobile": "+8801709876536"
+        },
+        {
+          "student_id": "2023100000239",
+          "name": "Shahriar Alam Tanim",
+          "program": "B.Sc. in CSE",
+          "email": "2023100000239@seu.edu.bd",
+          "mobile": "+8801711111103"
+        },
+        {
+          "student_id": "2023100000256",
+          "name": "Jarin Tasnim Nowrin",
+          "program": "B.Sc. in CSE",
+          "email": "2023100000256@seu.edu.bd",
+          "mobile": "+8801712345670"
+        },
+        {
+          "student_id": "2023100000273",
+          "name": "Ashraful Islam Rifat",
+          "program": "B.Sc. in CSE",
+          "email": "2023100000273@seu.edu.bd",
+          "mobile": "+8801713580237"
+        },
+        {
+          "student_id": "2023100000290",
+          "name": "Maliha Rahman Tisha",
+          "program": "B.Sc. in CSE",
+          "email": "2023100000290@seu.edu.bd",
+          "mobile": "+8801714814804"
+        }
+      ],
+      "sessions": [
+        {
+          "log_date": "2026-03-10",
+          "next_log_date": "2026-03-22",
+          "venue": "Research Lab (6th floor)",
+          "start_time": "10:00",
+          "end_time": "11:00",
+          "duration_minutes": 60,
+          "topic": "Problem framing and survey of existing hydroponics monitoring kits",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2023100000222",
+              "student_name": "Sumaiya Islam Prova",
+              "present": 1,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": "Advised to narrow scope — the current plan is too broad for the remaining weeks."
+            },
+            {
+              "student_code": "2023100000239",
+              "student_name": "Shahriar Alam Tanim",
+              "present": 1,
+              "work_done": "Extended the annotation guideline and re-annotated a disputed subset with a second annotator.",
+              "work_planned": "Document the dataset card, including collection method and known gaps.",
+              "faculty_notes": "Asked to bring reproducible results next session, not screenshots."
+            },
+            {
+              "student_code": "2023100000256",
+              "student_name": "Jarin Tasnim Nowrin",
+              "present": 1,
+              "work_done": "Produced the confusion matrix and identified the two dominant error modes.",
+              "work_planned": "Write up the error analysis section with the sampled examples.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000273",
+              "student_name": "Ashraful Islam Rifat",
+              "present": 1,
+              "work_done": "Prepared the methodology chapter draft with the revised pipeline diagram.",
+              "work_planned": "Revise the related-work table to include the two recent papers found this week.",
+              "faculty_notes": "Advised to narrow scope — the current plan is too broad for the remaining weeks."
+            },
+            {
+              "student_code": "2023100000290",
+              "student_name": "Maliha Rahman Tisha",
+              "present": 1,
+              "work_done": "Tuned the learning-rate schedule and reduced the validation loss plateau.",
+              "work_planned": "Run the full hyper-parameter sweep and pick the configuration for the report.",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-03-22",
+          "next_log_date": "2026-04-05",
+          "venue": "Faculty Room B",
+          "start_time": "11:00",
+          "end_time": "12:00",
+          "duration_minutes": 60,
+          "topic": "Sensor selection, calibration plan and bill of materials",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2023100000222",
+              "student_name": "Sumaiya Islam Prova",
+              "present": 1,
+              "work_done": "Containerised the service and verified it starts cleanly from a fresh checkout.",
+              "work_planned": "Prepare the deployment runbook for the final defence demo.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000239",
+              "student_name": "Shahriar Alam Tanim",
+              "present": 1,
+              "work_done": "Built the train/validation/test split with stratification and documented the split policy.",
+              "work_planned": "Rerun the split with the new records and confirm class balance holds.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000256",
+              "student_name": "Jarin Tasnim Nowrin",
+              "present": 1,
+              "work_done": "Drafted the results tables and figures in the report format.",
+              "work_planned": "Write up the error analysis section with the sampled examples.",
+              "faculty_notes": "Discussed the risk of relying on a single data source; agreed on a fallback."
+            },
+            {
+              "student_code": "2023100000273",
+              "student_name": "Ashraful Islam Rifat",
+              "present": 0,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000290",
+              "student_name": "Maliha Rahman Tisha",
+              "present": 1,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": "Good improvement since the last session. Reminded to keep the log updated."
+            }
+          ]
+        },
+        {
+          "log_date": "2026-04-05",
+          "next_log_date": "2026-04-19",
+          "venue": "Room 512",
+          "start_time": "12:00",
+          "end_time": "13:00",
+          "duration_minutes": 60,
+          "topic": "Enclosure design and power budget for the rooftop deployment",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2023100000222",
+              "student_name": "Sumaiya Islam Prova",
+              "present": 1,
+              "work_done": "Implemented the front-end screens for upload, result display and history.",
+              "work_planned": "Write the integration tests covering the three main user flows.",
+              "faculty_notes": "Raised concern about uneven task distribution within the group."
+            },
+            {
+              "student_code": "2023100000239",
+              "student_name": "Shahriar Alam Tanim",
+              "present": 1,
+              "work_done": "Cleaned and de-duplicated the collected corpus, dropping malformed records and normalising encoding.",
+              "work_planned": "Add a validation pass that rejects records failing the schema check.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000256",
+              "student_name": "Jarin Tasnim Nowrin",
+              "present": 0,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000273",
+              "student_name": "Ashraful Islam Rifat",
+              "present": 1,
+              "work_done": "Prepared the methodology chapter draft with the revised pipeline diagram.",
+              "work_planned": "Proofread the full draft and run the similarity check.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000290",
+              "student_name": "Maliha Rahman Tisha",
+              "present": 1,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": "Good improvement since the last session. Reminded to keep the log updated."
+            }
+          ]
+        },
+        {
+          "log_date": "2026-04-19",
+          "next_log_date": "2026-05-10",
+          "venue": "Room 512",
+          "start_time": "10:00",
+          "end_time": "11:00",
+          "duration_minutes": 60,
+          "topic": "Firmware milestone review and data-logging format",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2023100000222",
+              "student_name": "Sumaiya Islam Prova",
+              "present": 1,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000239",
+              "student_name": "Shahriar Alam Tanim",
+              "present": 0,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000256",
+              "student_name": "Jarin Tasnim Nowrin",
+              "present": 0,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000273",
+              "student_name": "Ashraful Islam Rifat",
+              "present": 1,
+              "work_done": "Reworked the problem statement after the feedback on scope.",
+              "work_planned": "Revise the related-work table to include the two recent papers found this week.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000290",
+              "student_name": "Maliha Rahman Tisha",
+              "present": 1,
+              "work_done": "Debugged the class-imbalance issue that was suppressing recall on the minority class.",
+              "work_planned": "Run the full hyper-parameter sweep and pick the configuration for the report.",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-05-10",
+          "next_log_date": "2026-06-02",
+          "venue": "CSE Lab 2",
+          "start_time": "11:00",
+          "end_time": "12:00",
+          "duration_minutes": 60,
+          "topic": "Field deployment issues: connectivity drops and sensor drift",
+          "session_kind": "milestone",
+          "studentLogs": [
+            {
+              "student_code": "2023100000222",
+              "student_name": "Sumaiya Islam Prova",
+              "present": 1,
+              "work_done": "Implemented caching so repeated queries do not re-run inference.",
+              "work_planned": "Prepare the deployment runbook for the final defence demo.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000239",
+              "student_name": "Shahriar Alam Tanim",
+              "present": 1,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000256",
+              "student_name": "Jarin Tasnim Nowrin",
+              "present": 0,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000273",
+              "student_name": "Ashraful Islam Rifat",
+              "present": 1,
+              "work_done": "Drafted the related-work section and mapped each cited method to our problem framing.",
+              "work_planned": "Proofread the full draft and run the similarity check.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000290",
+              "student_name": "Maliha Rahman Tisha",
+              "present": 1,
+              "work_done": "Ran an ablation over the two feature groups and tabulated the difference.",
+              "work_planned": "Compare against the second baseline mentioned in the literature review.",
+              "faculty_notes": "Asked to bring reproducible results next session, not screenshots."
+            }
+          ]
+        },
+        {
+          "log_date": "2026-06-02",
+          "next_log_date": "",
+          "venue": "CSE Lab 2",
+          "start_time": "12:00",
+          "end_time": "13:00",
+          "duration_minutes": 60,
+          "topic": "Replanning after hardware delay; revised milestone dates",
+          "session_kind": "presentation",
+          "studentLogs": [
+            {
+              "student_code": "2023100000222",
+              "student_name": "Sumaiya Islam Prova",
+              "present": 1,
+              "work_done": "Added request validation and error handling to the inference endpoint.",
+              "work_planned": "Add authentication and rate limiting before the demo.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000239",
+              "student_name": "Shahriar Alam Tanim",
+              "present": 1,
+              "work_done": "Wrote the ingestion script that pulls raw records into a versioned local store.",
+              "work_planned": "Rerun the split with the new records and confirm class balance holds.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000256",
+              "student_name": "Jarin Tasnim Nowrin",
+              "present": 1,
+              "work_done": "Drafted the results tables and figures in the report format.",
+              "work_planned": "Add per-class breakdown to the results table.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000273",
+              "student_name": "Ashraful Islam Rifat",
+              "present": 0,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2023100000290",
+              "student_name": "Maliha Rahman Tisha",
+              "present": 1,
+              "work_done": "Trained the baseline model and logged the run configuration for reproducibility.",
+              "work_planned": "Add early stopping and checkpoint recovery to the training script.",
+              "faculty_notes": ""
+            }
+          ]
+        }
+      ],
+      "reports": []
+    },
+    {
+      "group_name": "Group B1",
+      "project_title": "Vision-Based Queue Analytics for Hospital Outpatient Departments",
+      "course_code": "CSE461",
+      "semester": "Spring 2026",
+      "academic_year": "2025-26",
+      "co_supervisor_name": "Nusrat Hoque",
+      "co_supervisor_designation": "Lecturer",
+      "min_required_sessions": 8,
+      "status": "active",
+      "students": [
+        {
+          "student_id": "2022100000307",
+          "name": "Naimur Rahman Joy",
+          "program": "B.Sc. in CSE",
+          "email": "2022100000307@seu.edu.bd",
+          "mobile": "+8801716049371"
+        },
+        {
+          "student_id": "2022100000324",
+          "name": "Sabrina Sultana Meem",
+          "program": "B.Sc. in CSE",
+          "email": "2022100000324@seu.edu.bd",
+          "mobile": "+8801717283938"
+        },
+        {
+          "student_id": "2022100000341",
+          "name": "Tahmid Hossain Antor",
+          "program": "B.Sc. in CSE",
+          "email": "2022100000341@seu.edu.bd",
+          "mobile": "+8801718518505"
+        },
+        {
+          "student_id": "2022100000358",
+          "name": "Rifah Tasnia Anika",
+          "program": "B.Sc. in CSE",
+          "email": "2022100000358@seu.edu.bd",
+          "mobile": "+8801719753072"
+        },
+        {
+          "student_id": "2022100000375",
+          "name": "Imran Kabir Shanto",
+          "program": "B.Sc. in CSE",
+          "email": "2022100000375@seu.edu.bd",
+          "mobile": "+8801720987639"
+        }
+      ],
+      "sessions": [
+        {
+          "log_date": "2026-03-03",
+          "next_log_date": "2026-03-13",
+          "venue": "CSE Lab 2",
+          "start_time": "10:00",
+          "end_time": "11:00",
+          "duration_minutes": 60,
+          "topic": "Carry-over review of FYDP I outcomes and design objectives",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2022100000307",
+              "student_name": "Naimur Rahman Joy",
+              "present": 1,
+              "work_done": "Tuned the learning-rate schedule and reduced the validation loss plateau.",
+              "work_planned": "Compare against the second baseline mentioned in the literature review.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000324",
+              "student_name": "Sabrina Sultana Meem",
+              "present": 1,
+              "work_done": "Added request validation and error handling to the inference endpoint.",
+              "work_planned": "Write the integration tests covering the three main user flows.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000341",
+              "student_name": "Tahmid Hossain Antor",
+              "present": 1,
+              "work_done": "Produced the confusion matrix and identified the two dominant error modes.",
+              "work_planned": "Extend the evaluation to the held-out out-of-distribution subset.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000358",
+              "student_name": "Rifah Tasnia Anika",
+              "present": 1,
+              "work_done": "Measured inter-annotator agreement on the pilot batch and summarised the disagreements.",
+              "work_planned": "Rerun the split with the new records and confirm class balance holds.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000375",
+              "student_name": "Imran Kabir Shanto",
+              "present": 1,
+              "work_done": "Prepared the methodology chapter draft with the revised pipeline diagram.",
+              "work_planned": "Prepare the slide deck outline for the presentation.",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-03-13",
+          "next_log_date": "2026-03-24",
+          "venue": "CSE Lab 2",
+          "start_time": "11:00",
+          "end_time": "12:00",
+          "duration_minutes": 60,
+          "topic": "Detection and tracking architecture selection",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2022100000307",
+              "student_name": "Naimur Rahman Joy",
+              "present": 1,
+              "work_done": "Debugged the class-imbalance issue that was suppressing recall on the minority class.",
+              "work_planned": "Run the full hyper-parameter sweep and pick the configuration for the report.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000324",
+              "student_name": "Sabrina Sultana Meem",
+              "present": 1,
+              "work_done": "Built the API layer and wired it to the inference service.",
+              "work_planned": "Write the integration tests covering the three main user flows.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000341",
+              "student_name": "Tahmid Hossain Antor",
+              "present": 1,
+              "work_done": "Built the error-analysis notebook and sampled failure cases for manual inspection.",
+              "work_planned": "Add per-class breakdown to the results table.",
+              "faculty_notes": "Raised concern about uneven task distribution within the group."
+            },
+            {
+              "student_code": "2022100000358",
+              "student_name": "Rifah Tasnia Anika",
+              "present": 1,
+              "work_done": "Prepared the augmentation pipeline and checked that it does not leak across splits.",
+              "work_planned": "Add a validation pass that rejects records failing the schema check.",
+              "faculty_notes": "Discussed the risk of relying on a single data source; agreed on a fallback."
+            },
+            {
+              "student_code": "2022100000375",
+              "student_name": "Imran Kabir Shanto",
+              "present": 1,
+              "work_done": "Reworked the problem statement after the feedback on scope.",
+              "work_planned": "Prepare the slide deck outline for the presentation.",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-03-24",
+          "next_log_date": "2026-04-03",
+          "venue": "Room 401",
+          "start_time": "12:00",
+          "end_time": "13:00",
+          "duration_minutes": 60,
+          "topic": "Privacy handling: on-device blurring and retention policy",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2022100000307",
+              "student_name": "Naimur Rahman Joy",
+              "present": 1,
+              "work_done": "Implemented the proposed architecture and confirmed it trains to convergence on the pilot subset.",
+              "work_planned": "Compare against the second baseline mentioned in the literature review.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000324",
+              "student_name": "Sabrina Sultana Meem",
+              "present": 1,
+              "work_done": "Containerised the service and verified it starts cleanly from a fresh checkout.",
+              "work_planned": "Add authentication and rate limiting before the demo.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000341",
+              "student_name": "Tahmid Hossain Antor",
+              "present": 1,
+              "work_done": "Drafted the results tables and figures in the report format.",
+              "work_planned": "Extend the evaluation to the held-out out-of-distribution subset.",
+              "faculty_notes": "Asked to bring reproducible results next session, not screenshots."
+            },
+            {
+              "student_code": "2022100000358",
+              "student_name": "Rifah Tasnia Anika",
+              "present": 0,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000375",
+              "student_name": "Imran Kabir Shanto",
+              "present": 1,
+              "work_done": "Reworked the problem statement after the feedback on scope.",
+              "work_planned": "Revise the related-work table to include the two recent papers found this week.",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-04-03",
+          "next_log_date": "2026-04-17",
+          "venue": "Room 401",
+          "start_time": "10:00",
+          "end_time": "11:00",
+          "duration_minutes": 60,
+          "topic": "Design freeze and interface contract between modules",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2022100000307",
+              "student_name": "Naimur Rahman Joy",
+              "present": 1,
+              "work_done": "Trained the baseline model and logged the run configuration for reproducibility.",
+              "work_planned": "Add early stopping and checkpoint recovery to the training script.",
+              "faculty_notes": "Suggested reading two additional papers before finalising the approach."
+            },
+            {
+              "student_code": "2022100000324",
+              "student_name": "Sabrina Sultana Meem",
+              "present": 1,
+              "work_done": "Added request validation and error handling to the inference endpoint.",
+              "work_planned": "Add authentication and rate limiting before the demo.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000341",
+              "student_name": "Tahmid Hossain Antor",
+              "present": 1,
+              "work_done": "Produced the confusion matrix and identified the two dominant error modes.",
+              "work_planned": "Cross-check the reported metrics against a second implementation.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000358",
+              "student_name": "Rifah Tasnia Anika",
+              "present": 1,
+              "work_done": "Wrote the ingestion script that pulls raw records into a versioned local store.",
+              "work_planned": "Finish annotating the remaining batch and freeze version 2 of the dataset.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000375",
+              "student_name": "Imran Kabir Shanto",
+              "present": 1,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-04-17",
+          "next_log_date": "2026-05-01",
+          "venue": "Faculty Room B",
+          "start_time": "11:00",
+          "end_time": "12:00",
+          "duration_minutes": 60,
+          "topic": "Integration checkpoint and first end-to-end run",
+          "session_kind": "milestone",
+          "studentLogs": [
+            {
+              "student_code": "2022100000307",
+              "student_name": "Naimur Rahman Joy",
+              "present": 1,
+              "work_done": "Trained the baseline model and logged the run configuration for reproducibility.",
+              "work_planned": "Run the full hyper-parameter sweep and pick the configuration for the report.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000324",
+              "student_name": "Sabrina Sultana Meem",
+              "present": 1,
+              "work_done": "Implemented caching so repeated queries do not re-run inference.",
+              "work_planned": "Add authentication and rate limiting before the demo.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000341",
+              "student_name": "Tahmid Hossain Antor",
+              "present": 1,
+              "work_done": "Drafted the results tables and figures in the report format.",
+              "work_planned": "Write up the error analysis section with the sampled examples.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000358",
+              "student_name": "Rifah Tasnia Anika",
+              "present": 1,
+              "work_done": "Cleaned and de-duplicated the collected corpus, dropping malformed records and normalising encoding.",
+              "work_planned": "Rerun the split with the new records and confirm class balance holds.",
+              "faculty_notes": "Discussed the risk of relying on a single data source; agreed on a fallback."
+            },
+            {
+              "student_code": "2022100000375",
+              "student_name": "Imran Kabir Shanto",
+              "present": 0,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-05-01",
+          "next_log_date": "2026-05-15",
+          "venue": "Faculty Room B",
+          "start_time": "12:00",
+          "end_time": "13:00",
+          "duration_minutes": 60,
+          "topic": "Validation protocol against manually counted ground truth",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2022100000307",
+              "student_name": "Naimur Rahman Joy",
+              "present": 1,
+              "work_done": "Ran an ablation over the two feature groups and tabulated the difference.",
+              "work_planned": "Profile the training step to find where the bottleneck sits.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000324",
+              "student_name": "Sabrina Sultana Meem",
+              "present": 0,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000341",
+              "student_name": "Tahmid Hossain Antor",
+              "present": 1,
+              "work_done": "Compared results against the two published baselines and reconciled the metric definitions.",
+              "work_planned": "Extend the evaluation to the held-out out-of-distribution subset.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000358",
+              "student_name": "Rifah Tasnia Anika",
+              "present": 1,
+              "work_done": "Prepared the augmentation pipeline and checked that it does not leak across splits.",
+              "work_planned": "Rerun the split with the new records and confirm class balance holds.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000375",
+              "student_name": "Imran Kabir Shanto",
+              "present": 1,
+              "work_done": "Drafted the related-work section and mapped each cited method to our problem framing.",
+              "work_planned": "Complete the discussion section once the final results are in.",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-05-15",
+          "next_log_date": "2026-05-29",
+          "venue": "Room 401",
+          "start_time": "10:00",
+          "end_time": "11:00",
+          "duration_minutes": 60,
+          "topic": "Performance tuning for the target edge device",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2022100000307",
+              "student_name": "Naimur Rahman Joy",
+              "present": 1,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000324",
+              "student_name": "Sabrina Sultana Meem",
+              "present": 1,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": "Asked to bring reproducible results next session, not screenshots."
+            },
+            {
+              "student_code": "2022100000341",
+              "student_name": "Tahmid Hossain Antor",
+              "present": 1,
+              "work_done": "Drafted the results tables and figures in the report format.",
+              "work_planned": "Extend the evaluation to the held-out out-of-distribution subset.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000358",
+              "student_name": "Rifah Tasnia Anika",
+              "present": 1,
+              "work_done": "Built the train/validation/test split with stratification and documented the split policy.",
+              "work_planned": "Document the dataset card, including collection method and known gaps.",
+              "faculty_notes": "Discussed the risk of relying on a single data source; agreed on a fallback."
+            },
+            {
+              "student_code": "2022100000375",
+              "student_name": "Imran Kabir Shanto",
+              "present": 1,
+              "work_done": "Drafted the abstract and introduction for internal review.",
+              "work_planned": "Proofread the full draft and run the similarity check.",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-05-29",
+          "next_log_date": "2026-06-12",
+          "venue": "Room 401",
+          "start_time": "11:00",
+          "end_time": "12:00",
+          "duration_minutes": 60,
+          "topic": "Design validation report and defect log review",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2022100000307",
+              "student_name": "Naimur Rahman Joy",
+              "present": 1,
+              "work_done": "Implemented the proposed architecture and confirmed it trains to convergence on the pilot subset.",
+              "work_planned": "Run the full hyper-parameter sweep and pick the configuration for the report.",
+              "faculty_notes": "Asked to bring reproducible results next session, not screenshots."
+            },
+            {
+              "student_code": "2022100000324",
+              "student_name": "Sabrina Sultana Meem",
+              "present": 1,
+              "work_done": "Containerised the service and verified it starts cleanly from a fresh checkout.",
+              "work_planned": "Write the integration tests covering the three main user flows.",
+              "faculty_notes": "Raised concern about uneven task distribution within the group."
+            },
+            {
+              "student_code": "2022100000341",
+              "student_name": "Tahmid Hossain Antor",
+              "present": 1,
+              "work_done": "Set up the evaluation harness with fixed seeds so numbers are reproducible.",
+              "work_planned": "Add per-class breakdown to the results table.",
+              "faculty_notes": "Advised to narrow scope — the current plan is too broad for the remaining weeks."
+            },
+            {
+              "student_code": "2022100000358",
+              "student_name": "Rifah Tasnia Anika",
+              "present": 0,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000375",
+              "student_name": "Imran Kabir Shanto",
+              "present": 1,
+              "work_done": "Drafted the related-work section and mapped each cited method to our problem framing.",
+              "work_planned": "Prepare the slide deck outline for the presentation.",
+              "faculty_notes": "Progress on track; asked for the raw numbers to be committed alongside the notebook."
+            }
+          ]
+        },
+        {
+          "log_date": "2026-06-12",
+          "next_log_date": "",
+          "venue": "CSE Lab 2",
+          "start_time": "12:00",
+          "end_time": "13:00",
+          "duration_minutes": 60,
+          "topic": "Report consolidation and demonstration rehearsal",
+          "session_kind": "presentation",
+          "studentLogs": [
+            {
+              "student_code": "2022100000307",
+              "student_name": "Naimur Rahman Joy",
+              "present": 1,
+              "work_done": "Ran an ablation over the two feature groups and tabulated the difference.",
+              "work_planned": "Profile the training step to find where the bottleneck sits.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000324",
+              "student_name": "Sabrina Sultana Meem",
+              "present": 1,
+              "work_done": "Built the API layer and wired it to the inference service.",
+              "work_planned": "Add authentication and rate limiting before the demo.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000341",
+              "student_name": "Tahmid Hossain Antor",
+              "present": 1,
+              "work_done": "Built the error-analysis notebook and sampled failure cases for manual inspection.",
+              "work_planned": "Extend the evaluation to the held-out out-of-distribution subset.",
+              "faculty_notes": "Discussed the risk of relying on a single data source; agreed on a fallback."
+            },
+            {
+              "student_code": "2022100000358",
+              "student_name": "Rifah Tasnia Anika",
+              "present": 1,
+              "work_done": "Built the train/validation/test split with stratification and documented the split policy.",
+              "work_planned": "Add a validation pass that rejects records failing the schema check.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000375",
+              "student_name": "Imran Kabir Shanto",
+              "present": 1,
+              "work_done": "Standardised the citation style and fixed the broken references.",
+              "work_planned": "Proofread the full draft and run the similarity check.",
+              "faculty_notes": ""
+            }
+          ]
+        }
+      ],
+      "reports": []
+    },
+    {
+      "group_name": "Group B2",
+      "project_title": "Federated Learning for Bengali Handwriting Recognition on Edge Devices",
+      "course_code": "CSE461",
+      "semester": "Spring 2026",
+      "academic_year": "2025-26",
+      "co_supervisor_name": null,
+      "co_supervisor_designation": null,
+      "min_required_sessions": 8,
+      "status": "active",
+      "students": [
+        {
+          "student_id": "2022100000392",
+          "name": "Nafisa Anjum Ridi",
+          "program": "B.Sc. in CSE",
+          "email": "2022100000392@seu.edu.bd",
+          "mobile": "+8801722222206"
+        },
+        {
+          "student_id": "2022100000409",
+          "name": "Zubayer Ahmed Fahim",
+          "program": "B.Sc. in CSE",
+          "email": "2022100000409@seu.edu.bd",
+          "mobile": "+8801723456773"
+        },
+        {
+          "student_id": "2022100000426",
+          "name": "Mounota Binte Karim",
+          "program": "B.Sc. in CSE",
+          "email": "2022100000426@seu.edu.bd",
+          "mobile": "+8801724691340"
+        }
+      ],
+      "sessions": [
+        {
+          "log_date": "2026-03-18",
+          "next_log_date": "2026-04-01",
+          "venue": "Room 512",
+          "start_time": "10:00",
+          "end_time": "11:00",
+          "duration_minutes": 60,
+          "topic": "Recap of FYDP I baseline and federated design objectives",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2022100000392",
+              "student_name": "Nafisa Anjum Ridi",
+              "present": 1,
+              "work_done": "Ported the training loop to mixed precision to fit the model in available GPU memory. Ran an ablation over the two feature groups and tabulated the difference.",
+              "work_planned": "Profile the training step to find where the bottleneck sits.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000409",
+              "student_name": "Zubayer Ahmed Fahim",
+              "present": 1,
+              "work_done": "Implemented caching so repeated queries do not re-run inference.",
+              "work_planned": "Write the integration tests covering the three main user flows.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000426",
+              "student_name": "Mounota Binte Karim",
+              "present": 1,
+              "work_done": "Drafted the abstract and introduction for internal review.",
+              "work_planned": "",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-04-01",
+          "next_log_date": "2026-04-15",
+          "venue": "Research Lab (6th floor)",
+          "start_time": "11:00",
+          "end_time": "12:00",
+          "duration_minutes": 60,
+          "topic": "Client simulation harness and aggregation strategy",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2022100000392",
+              "student_name": "Nafisa Anjum Ridi",
+              "present": 1,
+              "work_done": "Debugged the class-imbalance issue that was suppressing recall on the minority class. Implemented the proposed architecture and confirmed it trains to convergence on the pilot subset.",
+              "work_planned": "Profile the training step to find where the bottleneck sits.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000409",
+              "student_name": "Zubayer Ahmed Fahim",
+              "present": 1,
+              "work_done": "Implemented the front-end screens for upload, result display and history.",
+              "work_planned": "Add authentication and rate limiting before the demo.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000426",
+              "student_name": "Mounota Binte Karim",
+              "present": 1,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-04-15",
+          "next_log_date": "2026-04-29",
+          "venue": "CSE Lab 2",
+          "start_time": "12:00",
+          "end_time": "13:00",
+          "duration_minutes": 60,
+          "topic": "Non-IID partitioning scheme and its effect on convergence",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2022100000392",
+              "student_name": "Nafisa Anjum Ridi",
+              "present": 1,
+              "work_done": "Ported the training loop to mixed precision to fit the model in available GPU memory. Debugged the class-imbalance issue that was suppressing recall on the minority class.",
+              "work_planned": "Profile the training step to find where the bottleneck sits.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000409",
+              "student_name": "Zubayer Ahmed Fahim",
+              "present": 1,
+              "work_done": "Set up the deployment configuration and ran a smoke test on the staging host.",
+              "work_planned": "Write the integration tests covering the three main user flows.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000426",
+              "student_name": "Mounota Binte Karim",
+              "present": 1,
+              "work_done": "Drafted the related-work section and mapped each cited method to our problem framing.",
+              "work_planned": "Revise the related-work table to include the two recent papers found this week.",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-04-29",
+          "next_log_date": "2026-05-13",
+          "venue": "Research Lab (6th floor)",
+          "start_time": "10:00",
+          "end_time": "11:00",
+          "duration_minutes": 60,
+          "topic": "Communication cost measurement and compression options",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2022100000392",
+              "student_name": "Nafisa Anjum Ridi",
+              "present": 1,
+              "work_done": "Debugged the class-imbalance issue that was suppressing recall on the minority class. Tuned the learning-rate schedule and reduced the validation loss plateau.",
+              "work_planned": "Add early stopping and checkpoint recovery to the training script.",
+              "faculty_notes": "Suggested reading two additional papers before finalising the approach."
+            },
+            {
+              "student_code": "2022100000409",
+              "student_name": "Zubayer Ahmed Fahim",
+              "present": 1,
+              "work_done": "Added request validation and error handling to the inference endpoint.",
+              "work_planned": "Measure end-to-end latency under a simulated ten-user load.",
+              "faculty_notes": "Asked to bring reproducible results next session, not screenshots."
+            },
+            {
+              "student_code": "2022100000426",
+              "student_name": "Mounota Binte Karim",
+              "present": 0,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-05-13",
+          "next_log_date": "2026-05-27",
+          "venue": "Research Lab (6th floor)",
+          "start_time": "11:00",
+          "end_time": "12:00",
+          "duration_minutes": 60,
+          "topic": "Design review: security assumptions and threat model",
+          "session_kind": "milestone",
+          "studentLogs": [
+            {
+              "student_code": "2022100000392",
+              "student_name": "Nafisa Anjum Ridi",
+              "present": 1,
+              "work_done": "Implemented the proposed architecture and confirmed it trains to convergence on the pilot subset. Trained the baseline model and logged the run configuration for reproducibility.",
+              "work_planned": "Profile the training step to find where the bottleneck sits.",
+              "faculty_notes": "Good improvement since the last session. Reminded to keep the log updated."
+            },
+            {
+              "student_code": "2022100000409",
+              "student_name": "Zubayer Ahmed Fahim",
+              "present": 1,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": "Asked to bring reproducible results next session, not screenshots."
+            },
+            {
+              "student_code": "2022100000426",
+              "student_name": "Mounota Binte Karim",
+              "present": 1,
+              "work_done": "Drafted the abstract and introduction for internal review.",
+              "work_planned": "",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-05-27",
+          "next_log_date": "2026-06-10",
+          "venue": "CSE Lab 2",
+          "start_time": "12:00",
+          "end_time": "13:00",
+          "duration_minutes": 60,
+          "topic": "Integration of the on-device inference path",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2022100000392",
+              "student_name": "Nafisa Anjum Ridi",
+              "present": 1,
+              "work_done": "Debugged the class-imbalance issue that was suppressing recall on the minority class. Implemented the proposed architecture and confirmed it trains to convergence on the pilot subset.",
+              "work_planned": "Compare against the second baseline mentioned in the literature review.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000409",
+              "student_name": "Zubayer Ahmed Fahim",
+              "present": 1,
+              "work_done": "Implemented the front-end screens for upload, result display and history.",
+              "work_planned": "Measure end-to-end latency under a simulated ten-user load.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000426",
+              "student_name": "Mounota Binte Karim",
+              "present": 1,
+              "work_done": "Prepared the methodology chapter draft with the revised pipeline diagram.",
+              "work_planned": "",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-06-10",
+          "next_log_date": "2026-06-24",
+          "venue": "Room 401",
+          "start_time": "10:00",
+          "end_time": "11:00",
+          "duration_minutes": 60,
+          "topic": "Validation runs across simulated client counts",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2022100000392",
+              "student_name": "Nafisa Anjum Ridi",
+              "present": 1,
+              "work_done": "Tuned the learning-rate schedule and reduced the validation loss plateau. Ran an ablation over the two feature groups and tabulated the difference.",
+              "work_planned": "Add early stopping and checkpoint recovery to the training script.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000409",
+              "student_name": "Zubayer Ahmed Fahim",
+              "present": 1,
+              "work_done": "Implemented the front-end screens for upload, result display and history.",
+              "work_planned": "Add authentication and rate limiting before the demo.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000426",
+              "student_name": "Mounota Binte Karim",
+              "present": 1,
+              "work_done": "Prepared the methodology chapter draft with the revised pipeline diagram.",
+              "work_planned": "",
+              "faculty_notes": "Discussed the risk of relying on a single data source; agreed on a fallback."
+            }
+          ]
+        },
+        {
+          "log_date": "2026-06-24",
+          "next_log_date": "",
+          "venue": "CSE Lab 2",
+          "start_time": "11:00",
+          "end_time": "12:00",
+          "duration_minutes": 60,
+          "topic": "Report drafting and figure preparation",
+          "session_kind": "presentation",
+          "studentLogs": [
+            {
+              "student_code": "2022100000392",
+              "student_name": "Nafisa Anjum Ridi",
+              "present": 1,
+              "work_done": "Tuned the learning-rate schedule and reduced the validation loss plateau. Tuned the learning-rate schedule and reduced the validation loss plateau.",
+              "work_planned": "Add early stopping and checkpoint recovery to the training script.",
+              "faculty_notes": "Raised concern about uneven task distribution within the group."
+            },
+            {
+              "student_code": "2022100000409",
+              "student_name": "Zubayer Ahmed Fahim",
+              "present": 1,
+              "work_done": "Implemented caching so repeated queries do not re-run inference.",
+              "work_planned": "Add authentication and rate limiting before the demo.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000426",
+              "student_name": "Mounota Binte Karim",
+              "present": 1,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            }
+          ]
+        }
+      ],
+      "reports": []
+    },
+    {
+      "group_name": "Group C1",
+      "project_title": "Deployment of a Bangla Legal-Document Summarizer for District Court Registries",
+      "course_code": "CSE462",
+      "semester": "Spring 2026",
+      "academic_year": "2025-26",
+      "co_supervisor_name": "Nusrat Hoque",
+      "co_supervisor_designation": "Lecturer",
+      "min_required_sessions": 8,
+      "status": "active",
+      "students": [
+        {
+          "student_id": "2022100000443",
+          "name": "Sakib Al Hasan Turjo",
+          "program": "B.Sc. in CSE",
+          "email": "2022100000443@seu.edu.bd",
+          "mobile": "+8801725925907"
+        },
+        {
+          "student_id": "2022100000460",
+          "name": "Anika Tabassum Nishi",
+          "program": "B.Sc. in CSE",
+          "email": "2022100000460@seu.edu.bd",
+          "mobile": "+8801727160474"
+        },
+        {
+          "student_id": "2022100000477",
+          "name": "Redwan Ahmed Siam",
+          "program": "B.Sc. in CSE",
+          "email": "2022100000477@seu.edu.bd",
+          "mobile": "+8801728395041"
+        },
+        {
+          "student_id": "2022100000494",
+          "name": "Sanjida Akter Bristy",
+          "program": "B.Sc. in CSE",
+          "email": "2022100000494@seu.edu.bd",
+          "mobile": "+8801729629608"
+        }
+      ],
+      "sessions": [
+        {
+          "log_date": "2026-02-24",
+          "next_log_date": "2026-03-08",
+          "venue": "Room 401",
+          "start_time": "10:00",
+          "end_time": "11:00",
+          "duration_minutes": 60,
+          "topic": "Deployment scope, stakeholder list and success criteria",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2022100000443",
+              "student_name": "Sakib Al Hasan Turjo",
+              "present": 1,
+              "work_done": "Set up the deployment configuration and ran a smoke test on the staging host.",
+              "work_planned": "Add authentication and rate limiting before the demo.",
+              "faculty_notes": "Advised to narrow scope — the current plan is too broad for the remaining weeks."
+            },
+            {
+              "student_code": "2022100000460",
+              "student_name": "Anika Tabassum Nishi",
+              "present": 1,
+              "work_done": "Drafted the results tables and figures in the report format.",
+              "work_planned": "Write up the error analysis section with the sampled examples.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000477",
+              "student_name": "Redwan Ahmed Siam",
+              "present": 1,
+              "work_done": "Debugged the class-imbalance issue that was suppressing recall on the minority class.",
+              "work_planned": "Run the full hyper-parameter sweep and pick the configuration for the report.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000494",
+              "student_name": "Sanjida Akter Bristy",
+              "present": 1,
+              "work_done": "Drafted the related-work section and mapped each cited method to our problem framing.",
+              "work_planned": "Prepare the slide deck outline for the presentation.",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-03-08",
+          "next_log_date": "2026-03-20",
+          "venue": "Research Lab (6th floor)",
+          "start_time": "11:00",
+          "end_time": "12:00",
+          "duration_minutes": 60,
+          "topic": "Pilot site requirements and data-handling agreement",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2022100000443",
+              "student_name": "Sakib Al Hasan Turjo",
+              "present": 1,
+              "work_done": "Implemented caching so repeated queries do not re-run inference.",
+              "work_planned": "Measure end-to-end latency under a simulated ten-user load.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000460",
+              "student_name": "Anika Tabassum Nishi",
+              "present": 1,
+              "work_done": "Compared results against the two published baselines and reconciled the metric definitions.",
+              "work_planned": "Extend the evaluation to the held-out out-of-distribution subset.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000477",
+              "student_name": "Redwan Ahmed Siam",
+              "present": 1,
+              "work_done": "Tuned the learning-rate schedule and reduced the validation loss plateau.",
+              "work_planned": "Compare against the second baseline mentioned in the literature review.",
+              "faculty_notes": "Raised concern about uneven task distribution within the group."
+            },
+            {
+              "student_code": "2022100000494",
+              "student_name": "Sanjida Akter Bristy",
+              "present": 1,
+              "work_done": "Standardised the citation style and fixed the broken references.",
+              "work_planned": "Complete the discussion section once the final results are in.",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-03-20",
+          "next_log_date": "2026-04-03",
+          "venue": "Room 512",
+          "start_time": "12:00",
+          "end_time": "13:00",
+          "duration_minutes": 60,
+          "topic": "Production hardening checklist and monitoring plan",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2022100000443",
+              "student_name": "Sakib Al Hasan Turjo",
+              "present": 1,
+              "work_done": "Built the API layer and wired it to the inference service.",
+              "work_planned": "Measure end-to-end latency under a simulated ten-user load.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000460",
+              "student_name": "Anika Tabassum Nishi",
+              "present": 1,
+              "work_done": "Compared results against the two published baselines and reconciled the metric definitions.",
+              "work_planned": "Cross-check the reported metrics against a second implementation.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000477",
+              "student_name": "Redwan Ahmed Siam",
+              "present": 1,
+              "work_done": "Debugged the class-imbalance issue that was suppressing recall on the minority class.",
+              "work_planned": "Profile the training step to find where the bottleneck sits.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000494",
+              "student_name": "Sanjida Akter Bristy",
+              "present": 1,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-04-03",
+          "next_log_date": "2026-04-17",
+          "venue": "CSE Lab 2",
+          "start_time": "10:00",
+          "end_time": "11:00",
+          "duration_minutes": 60,
+          "topic": "User acceptance testing protocol with registry staff",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2022100000443",
+              "student_name": "Sakib Al Hasan Turjo",
+              "present": 1,
+              "work_done": "Set up the deployment configuration and ran a smoke test on the staging host.",
+              "work_planned": "Prepare the deployment runbook for the final defence demo.",
+              "faculty_notes": "Raised concern about uneven task distribution within the group."
+            },
+            {
+              "student_code": "2022100000460",
+              "student_name": "Anika Tabassum Nishi",
+              "present": 1,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000477",
+              "student_name": "Redwan Ahmed Siam",
+              "present": 1,
+              "work_done": "Implemented the proposed architecture and confirmed it trains to convergence on the pilot subset.",
+              "work_planned": "Add early stopping and checkpoint recovery to the training script.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000494",
+              "student_name": "Sanjida Akter Bristy",
+              "present": 1,
+              "work_done": "Drafted the abstract and introduction for internal review.",
+              "work_planned": "Revise the related-work table to include the two recent papers found this week.",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-04-17",
+          "next_log_date": "2026-05-01",
+          "venue": "Room 512",
+          "start_time": "11:00",
+          "end_time": "12:00",
+          "duration_minutes": 60,
+          "topic": "First pilot week: observations and defect triage",
+          "session_kind": "milestone",
+          "studentLogs": [
+            {
+              "student_code": "2022100000443",
+              "student_name": "Sakib Al Hasan Turjo",
+              "present": 1,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000460",
+              "student_name": "Anika Tabassum Nishi",
+              "present": 1,
+              "work_done": "Ran the statistical significance test across the five seeds and recorded confidence intervals.",
+              "work_planned": "Write up the error analysis section with the sampled examples.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000477",
+              "student_name": "Redwan Ahmed Siam",
+              "present": 0,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000494",
+              "student_name": "Sanjida Akter Bristy",
+              "present": 1,
+              "work_done": "Drafted the related-work section and mapped each cited method to our problem framing.",
+              "work_planned": "Proofread the full draft and run the similarity check.",
+              "faculty_notes": "Advised to narrow scope — the current plan is too broad for the remaining weeks."
+            }
+          ]
+        },
+        {
+          "log_date": "2026-05-01",
+          "next_log_date": "2026-05-15",
+          "venue": "CSE Lab 2",
+          "start_time": "12:00",
+          "end_time": "13:00",
+          "duration_minutes": 60,
+          "topic": "Cost model and sustainability plan for continued operation",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2022100000443",
+              "student_name": "Sakib Al Hasan Turjo",
+              "present": 1,
+              "work_done": "Containerised the service and verified it starts cleanly from a fresh checkout.",
+              "work_planned": "Write the integration tests covering the three main user flows.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000460",
+              "student_name": "Anika Tabassum Nishi",
+              "present": 1,
+              "work_done": "Produced the confusion matrix and identified the two dominant error modes.",
+              "work_planned": "Add per-class breakdown to the results table.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000477",
+              "student_name": "Redwan Ahmed Siam",
+              "present": 1,
+              "work_done": "Tuned the learning-rate schedule and reduced the validation loss plateau.",
+              "work_planned": "Run the full hyper-parameter sweep and pick the configuration for the report.",
+              "faculty_notes": "Good improvement since the last session. Reminded to keep the log updated."
+            },
+            {
+              "student_code": "2022100000494",
+              "student_name": "Sanjida Akter Bristy",
+              "present": 1,
+              "work_done": "Standardised the citation style and fixed the broken references.",
+              "work_planned": "Revise the related-work table to include the two recent papers found this week.",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-05-15",
+          "next_log_date": "2026-05-29",
+          "venue": "Research Lab (6th floor)",
+          "start_time": "10:00",
+          "end_time": "11:00",
+          "duration_minutes": 60,
+          "topic": "Professional practice: licensing, attribution and ethics review",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2022100000443",
+              "student_name": "Sakib Al Hasan Turjo",
+              "present": 1,
+              "work_done": "Implemented the front-end screens for upload, result display and history.",
+              "work_planned": "Measure end-to-end latency under a simulated ten-user load.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000460",
+              "student_name": "Anika Tabassum Nishi",
+              "present": 1,
+              "work_done": "Compared results against the two published baselines and reconciled the metric definitions.",
+              "work_planned": "Cross-check the reported metrics against a second implementation.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000477",
+              "student_name": "Redwan Ahmed Siam",
+              "present": 1,
+              "work_done": "Trained the baseline model and logged the run configuration for reproducibility.",
+              "work_planned": "Run the full hyper-parameter sweep and pick the configuration for the report.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000494",
+              "student_name": "Sanjida Akter Bristy",
+              "present": 0,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-05-29",
+          "next_log_date": "2026-06-12",
+          "venue": "CSE Lab 2",
+          "start_time": "11:00",
+          "end_time": "12:00",
+          "duration_minutes": 60,
+          "topic": "Industry-alignment review ahead of the external examiner",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2022100000443",
+              "student_name": "Sakib Al Hasan Turjo",
+              "present": 1,
+              "work_done": "Implemented the front-end screens for upload, result display and history.",
+              "work_planned": "Prepare the deployment runbook for the final defence demo.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000460",
+              "student_name": "Anika Tabassum Nishi",
+              "present": 1,
+              "work_done": "Built the error-analysis notebook and sampled failure cases for manual inspection.",
+              "work_planned": "Add per-class breakdown to the results table.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000477",
+              "student_name": "Redwan Ahmed Siam",
+              "present": 1,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000494",
+              "student_name": "Sanjida Akter Bristy",
+              "present": 1,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-06-12",
+          "next_log_date": "2026-06-26",
+          "venue": "Research Lab (6th floor)",
+          "start_time": "12:00",
+          "end_time": "13:00",
+          "duration_minutes": 60,
+          "topic": "Market-readiness assessment and handover documentation",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2022100000443",
+              "student_name": "Sakib Al Hasan Turjo",
+              "present": 1,
+              "work_done": "Built the API layer and wired it to the inference service.",
+              "work_planned": "Write the integration tests covering the three main user flows.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000460",
+              "student_name": "Anika Tabassum Nishi",
+              "present": 1,
+              "work_done": "Set up the evaluation harness with fixed seeds so numbers are reproducible.",
+              "work_planned": "Extend the evaluation to the held-out out-of-distribution subset.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000477",
+              "student_name": "Redwan Ahmed Siam",
+              "present": 1,
+              "work_done": "Trained the baseline model and logged the run configuration for reproducibility.",
+              "work_planned": "Add early stopping and checkpoint recovery to the training script.",
+              "faculty_notes": "Discussed the risk of relying on a single data source; agreed on a fallback."
+            },
+            {
+              "student_code": "2022100000494",
+              "student_name": "Sanjida Akter Bristy",
+              "present": 1,
+              "work_done": "Reworked the problem statement after the feedback on scope.",
+              "work_planned": "Prepare the slide deck outline for the presentation.",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2026-06-26",
+          "next_log_date": "",
+          "venue": "Research Lab (6th floor)",
+          "start_time": "10:00",
+          "end_time": "11:00",
+          "duration_minutes": 60,
+          "topic": "Final defence rehearsal and deliverable checklist",
+          "session_kind": "presentation",
+          "studentLogs": [
+            {
+              "student_code": "2022100000443",
+              "student_name": "Sakib Al Hasan Turjo",
+              "present": 1,
+              "work_done": "Implemented the front-end screens for upload, result display and history.",
+              "work_planned": "Write the integration tests covering the three main user flows.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000460",
+              "student_name": "Anika Tabassum Nishi",
+              "present": 1,
+              "work_done": "Built the error-analysis notebook and sampled failure cases for manual inspection.",
+              "work_planned": "Write up the error analysis section with the sampled examples.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000477",
+              "student_name": "Redwan Ahmed Siam",
+              "present": 1,
+              "work_done": "Ported the training loop to mixed precision to fit the model in available GPU memory.",
+              "work_planned": "Run the full hyper-parameter sweep and pick the configuration for the report.",
+              "faculty_notes": "Suggested reading two additional papers before finalising the approach."
+            },
+            {
+              "student_code": "2022100000494",
+              "student_name": "Sanjida Akter Bristy",
+              "present": 1,
+              "work_done": "Completed the systematic literature scan and tabulated twenty-two candidate works.",
+              "work_planned": "Prepare the slide deck outline for the presentation.",
+              "faculty_notes": ""
+            }
+          ]
+        }
+      ],
+      "reports": []
+    },
+    {
+      "group_name": "Group P1",
+      "project_title": "Crowd-Sourced Road Damage Reporting with Geospatial Clustering",
+      "course_code": "CSE460",
+      "semester": "Fall 2025",
+      "academic_year": "2025-26",
+      "co_supervisor_name": null,
+      "co_supervisor_designation": null,
+      "min_required_sessions": 8,
+      "status": "completed",
+      "students": [
+        {
+          "student_id": "2022100000511",
+          "name": "Mehedi Hasan Rabbi",
+          "program": "B.Sc. in CSE",
+          "email": "2022100000511@seu.edu.bd",
+          "mobile": "+8801730864175"
+        },
+        {
+          "student_id": "2022100000528",
+          "name": "Tasnim Jahan Meghla",
+          "program": "B.Sc. in CSE",
+          "email": "2022100000528@seu.edu.bd",
+          "mobile": "+8801732098742"
+        },
+        {
+          "student_id": "2022100000545",
+          "name": "Fahim Faisal Ovi",
+          "program": "B.Sc. in CSE",
+          "email": "2022100000545@seu.edu.bd",
+          "mobile": "+8801733333309"
+        },
+        {
+          "student_id": "2022100000562",
+          "name": "Israt Jahan Mou",
+          "program": "B.Sc. in CSE",
+          "email": "2022100000562@seu.edu.bd",
+          "mobile": "+8801734567876"
+        }
+      ],
+      "sessions": [
+        {
+          "log_date": "2025-09-15",
+          "next_log_date": "2025-09-29",
+          "venue": "Research Lab (6th floor)",
+          "start_time": "10:00",
+          "end_time": "11:00",
+          "duration_minutes": 60,
+          "topic": "Topic selection and scoping of the reporting problem",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2022100000511",
+              "student_name": "Mehedi Hasan Rabbi",
+              "present": 1,
+              "work_done": "Prepared the augmentation pipeline and checked that it does not leak across splits.",
+              "work_planned": "Document the dataset card, including collection method and known gaps.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000528",
+              "student_name": "Tasnim Jahan Meghla",
+              "present": 1,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000545",
+              "student_name": "Fahim Faisal Ovi",
+              "present": 1,
+              "work_done": "Built the error-analysis notebook and sampled failure cases for manual inspection.",
+              "work_planned": "Add per-class breakdown to the results table.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000562",
+              "student_name": "Israt Jahan Mou",
+              "present": 1,
+              "work_done": "Reworked the problem statement after the feedback on scope.",
+              "work_planned": "Proofread the full draft and run the similarity check.",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2025-09-29",
+          "next_log_date": "2025-10-13",
+          "venue": "Room 401",
+          "start_time": "11:00",
+          "end_time": "12:00",
+          "duration_minutes": 60,
+          "topic": "Review of existing citizen-reporting platforms",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2022100000511",
+              "student_name": "Mehedi Hasan Rabbi",
+              "present": 1,
+              "work_done": "Built the train/validation/test split with stratification and documented the split policy.",
+              "work_planned": "Add a validation pass that rejects records failing the schema check.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000528",
+              "student_name": "Tasnim Jahan Meghla",
+              "present": 1,
+              "work_done": "Containerised the service and verified it starts cleanly from a fresh checkout.",
+              "work_planned": "Measure end-to-end latency under a simulated ten-user load.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000545",
+              "student_name": "Fahim Faisal Ovi",
+              "present": 1,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000562",
+              "student_name": "Israt Jahan Mou",
+              "present": 1,
+              "work_done": "Drafted the abstract and introduction for internal review.",
+              "work_planned": "Revise the related-work table to include the two recent papers found this week.",
+              "faculty_notes": "Advised to narrow scope — the current plan is too broad for the remaining weeks."
+            }
+          ]
+        },
+        {
+          "log_date": "2025-10-13",
+          "next_log_date": "2025-10-27",
+          "venue": "Room 512",
+          "start_time": "12:00",
+          "end_time": "13:00",
+          "duration_minutes": 60,
+          "topic": "Data model for reports, photographs and geotags",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2022100000511",
+              "student_name": "Mehedi Hasan Rabbi",
+              "present": 1,
+              "work_done": "Measured inter-annotator agreement on the pilot batch and summarised the disagreements.",
+              "work_planned": "Rerun the split with the new records and confirm class balance holds.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000528",
+              "student_name": "Tasnim Jahan Meghla",
+              "present": 1,
+              "work_done": "Added request validation and error handling to the inference endpoint.",
+              "work_planned": "Prepare the deployment runbook for the final defence demo.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000545",
+              "student_name": "Fahim Faisal Ovi",
+              "present": 0,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000562",
+              "student_name": "Israt Jahan Mou",
+              "present": 1,
+              "work_done": "Completed the systematic literature scan and tabulated twenty-two candidate works.",
+              "work_planned": "Proofread the full draft and run the similarity check.",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2025-10-27",
+          "next_log_date": "2025-11-10",
+          "venue": "Room 512",
+          "start_time": "10:00",
+          "end_time": "11:00",
+          "duration_minutes": 60,
+          "topic": "Clustering approach for duplicate report detection",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2022100000511",
+              "student_name": "Mehedi Hasan Rabbi",
+              "present": 1,
+              "work_done": "Cleaned and de-duplicated the collected corpus, dropping malformed records and normalising encoding.",
+              "work_planned": "Rerun the split with the new records and confirm class balance holds.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000528",
+              "student_name": "Tasnim Jahan Meghla",
+              "present": 1,
+              "work_done": "Containerised the service and verified it starts cleanly from a fresh checkout.",
+              "work_planned": "Measure end-to-end latency under a simulated ten-user load.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000545",
+              "student_name": "Fahim Faisal Ovi",
+              "present": 1,
+              "work_done": "Built the error-analysis notebook and sampled failure cases for manual inspection.",
+              "work_planned": "Write up the error analysis section with the sampled examples.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000562",
+              "student_name": "Israt Jahan Mou",
+              "present": 1,
+              "work_done": "Standardised the citation style and fixed the broken references.",
+              "work_planned": "Prepare the slide deck outline for the presentation.",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2025-11-10",
+          "next_log_date": "2025-11-24",
+          "venue": "Research Lab (6th floor)",
+          "start_time": "11:00",
+          "end_time": "12:00",
+          "duration_minutes": 60,
+          "topic": "Progress review against the submitted milestone plan",
+          "session_kind": "milestone",
+          "studentLogs": [
+            {
+              "student_code": "2022100000511",
+              "student_name": "Mehedi Hasan Rabbi",
+              "present": 1,
+              "work_done": "Wrote the ingestion script that pulls raw records into a versioned local store.",
+              "work_planned": "Document the dataset card, including collection method and known gaps.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000528",
+              "student_name": "Tasnim Jahan Meghla",
+              "present": 1,
+              "work_done": "Containerised the service and verified it starts cleanly from a fresh checkout.",
+              "work_planned": "Write the integration tests covering the three main user flows.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000545",
+              "student_name": "Fahim Faisal Ovi",
+              "present": 1,
+              "work_done": "Ran the statistical significance test across the five seeds and recorded confidence intervals.",
+              "work_planned": "Extend the evaluation to the held-out out-of-distribution subset.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000562",
+              "student_name": "Israt Jahan Mou",
+              "present": 1,
+              "work_done": "Completed the systematic literature scan and tabulated twenty-two candidate works.",
+              "work_planned": "Complete the discussion section once the final results are in.",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2025-11-24",
+          "next_log_date": "2025-12-08",
+          "venue": "CSE Lab 2",
+          "start_time": "12:00",
+          "end_time": "13:00",
+          "duration_minutes": 60,
+          "topic": "Pilot data collection on two municipal wards",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2022100000511",
+              "student_name": "Mehedi Hasan Rabbi",
+              "present": 1,
+              "work_done": "Prepared the augmentation pipeline and checked that it does not leak across splits.",
+              "work_planned": "Add a validation pass that rejects records failing the schema check.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000528",
+              "student_name": "Tasnim Jahan Meghla",
+              "present": 1,
+              "work_done": "Containerised the service and verified it starts cleanly from a fresh checkout.",
+              "work_planned": "Prepare the deployment runbook for the final defence demo.",
+              "faculty_notes": "Asked to bring reproducible results next session, not screenshots."
+            },
+            {
+              "student_code": "2022100000545",
+              "student_name": "Fahim Faisal Ovi",
+              "present": 1,
+              "work_done": "Built the error-analysis notebook and sampled failure cases for manual inspection.",
+              "work_planned": "Extend the evaluation to the held-out out-of-distribution subset.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000562",
+              "student_name": "Israt Jahan Mou",
+              "present": 0,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2025-12-08",
+          "next_log_date": "2025-12-15",
+          "venue": "Research Lab (6th floor)",
+          "start_time": "10:00",
+          "end_time": "11:00",
+          "duration_minutes": 60,
+          "topic": "Result consolidation and limitation analysis",
+          "session_kind": "regular",
+          "studentLogs": [
+            {
+              "student_code": "2022100000511",
+              "student_name": "Mehedi Hasan Rabbi",
+              "present": 1,
+              "work_done": "Wrote the ingestion script that pulls raw records into a versioned local store.",
+              "work_planned": "Finish annotating the remaining batch and freeze version 2 of the dataset.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000528",
+              "student_name": "Tasnim Jahan Meghla",
+              "present": 1,
+              "work_done": "Implemented the front-end screens for upload, result display and history.",
+              "work_planned": "Add authentication and rate limiting before the demo.",
+              "faculty_notes": "Advised to narrow scope — the current plan is too broad for the remaining weeks."
+            },
+            {
+              "student_code": "2022100000545",
+              "student_name": "Fahim Faisal Ovi",
+              "present": 1,
+              "work_done": "Compared results against the two published baselines and reconciled the metric definitions.",
+              "work_planned": "Cross-check the reported metrics against a second implementation.",
+              "faculty_notes": "Progress on track; asked for the raw numbers to be committed alongside the notebook."
+            },
+            {
+              "student_code": "2022100000562",
+              "student_name": "Israt Jahan Mou",
+              "present": 1,
+              "work_done": "Drafted the related-work section and mapped each cited method to our problem framing.",
+              "work_planned": "Prepare the slide deck outline for the presentation.",
+              "faculty_notes": ""
+            }
+          ]
+        },
+        {
+          "log_date": "2025-12-15",
+          "next_log_date": "",
+          "venue": "Room 512",
+          "start_time": "11:00",
+          "end_time": "12:00",
+          "duration_minutes": 60,
+          "topic": "Report submission and presentation rehearsal",
+          "session_kind": "presentation",
+          "studentLogs": [
+            {
+              "student_code": "2022100000511",
+              "student_name": "Mehedi Hasan Rabbi",
+              "present": 1,
+              "work_done": "Cleaned and de-duplicated the collected corpus, dropping malformed records and normalising encoding.",
+              "work_planned": "Finish annotating the remaining batch and freeze version 2 of the dataset.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000528",
+              "student_name": "Tasnim Jahan Meghla",
+              "present": 1,
+              "work_done": "Implemented the front-end screens for upload, result display and history.",
+              "work_planned": "Add authentication and rate limiting before the demo.",
+              "faculty_notes": ""
+            },
+            {
+              "student_code": "2022100000545",
+              "student_name": "Fahim Faisal Ovi",
+              "present": 1,
+              "work_done": "Built the error-analysis notebook and sampled failure cases for manual inspection.",
+              "work_planned": "Add per-class breakdown to the results table.",
+              "faculty_notes": "Good improvement since the last session. Reminded to keep the log updated."
+            },
+            {
+              "student_code": "2022100000562",
+              "student_name": "Israt Jahan Mou",
+              "present": 1,
+              "work_done": "",
+              "work_planned": "",
+              "faculty_notes": ""
+            }
+          ]
+        }
+      ],
+      "reports": []
+    }
+  ],
+  "settings": {}
+}

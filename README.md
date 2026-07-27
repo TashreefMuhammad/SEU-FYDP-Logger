@@ -8,13 +8,23 @@ Built as a practical workaround for faculty supervisors to log sessions, track a
 
 ## Features
 
-- **Group & Student Management** — Create groups per course (CSE460/461/462), add students with validated 13-digit SEU student IDs
-- **Session Logging** — Log each supervision session with date, attendance, work done, work planned, and supervisor notes per student
-- **AI Report Generation** — Generate formal reports (attendance, progress, contribution analysis, overall summary) via the Gemini API
-- **Inline Report Editing** — Edit AI-generated reports before exporting
-- **Export Reports** — Save reports as HTML files (printable)
+- **Group & Student Management** — Create groups per course (CSE460/461/462), add students with validated 13-digit SEU student IDs, program, email and mobile; record an assigned Co-Supervisor and the semester's minimum session count
+- **Session Logging** — Log each supervision session with date, start/end time, topic of discussion, venue, attendance, work done, work planned, and supervisor notes per student
+- **Analysis Portal** — A deterministic dashboard computed arithmetically from the logbook: attendance, cadence, documentation completeness, contribution balance, engagement, derived assessment indicators, Guideline compliance matrix, supervision-load caps and a risk register. No AI involved
+- **Departmental Attendance Sheets (PDF)** — The official per-student form, one page per student, with the signature column replaced by a verifiable attendance record (or kept blank for wet signatures)
+- **Group Supervision Analysis (PDF)** — Session register, attendance matrix, per-student analysis, derived indicators and the full logbook transcript
+- **Comprehensive Supervision Dossier (PDF)** — The accreditation-facing document: portfolio summary, compliance matrix against the FYDP Guideline, per-group dossiers, risk register, evidence provenance, stated limitations, declaration and appendices
+- **AI Report Generation** — Narrative reports (attendance, progress, contribution analysis, overall summary) via the Gemini API, exportable as PDF or HTML
 - **JSON Import/Export** — Export all data as a portable `.json` file to work from home or share with a co-supervisor; import merges without data loss
-- **Faculty Profile** — Supervisor name, initials, designation appear on all generated reports
+- **Faculty Profile** — Supervisor name, initials, designation appear on all generated documents
+
+### Deterministic vs AI-generated
+
+The application draws a hard line between the two. Everything in the **Analysis Portal** and in the three
+PDF documents above is computed from stored rows and is reproducible: regenerating from an unchanged
+database yields the same figures and the same checksums. The **AI Reports** page is a separate narrative
+aid and is deliberately excluded from the dossier, so nothing placed in front of a board or an
+accreditation panel depends on a generative model.
 
 ## Supported FYDP Courses
 
@@ -64,13 +74,21 @@ Output: `dist/FYDP Logger Setup x.x.x.exe`
 src/
 ├── main/               # Electron main process (Node.js)
 │   ├── db.ts           # SQLite database via sql.js (WebAssembly)
+│   ├── analytics.ts    # Deterministic metrics, flags and Guideline compliance
+│   ├── documents/      # Print templates (pure HTML string builders)
+│   │   ├── html.ts             # Shared print CSS, inline SVG charts, helpers
+│   │   ├── attendance-sheet.ts # Departmental per-student attendance form
+│   │   ├── group-analysis.ts   # Per-group supervision analysis report
+│   │   └── dossier.ts          # Comprehensive accreditation dossier
 │   └── ipc/
 │       ├── db-handlers.ts      # CRUD operations
+│       ├── analysis-handlers.ts# Exposes computed analytics to the renderer
+│       ├── pdf-handlers.ts     # PDF generation via Chromium printToPDF
 │       ├── gemini-handlers.ts  # Gemini AI report generation
 │       └── export-handlers.ts  # JSON and HTML export/import
 ├── preload/            # Exposes window.api to the renderer
 └── renderer/src/       # React + TypeScript frontend
-    ├── pages/          # Dashboard, Groups, LogSession, Reports, ImportExport, Settings
+    ├── pages/          # Dashboard, Groups, LogSession, Analysis, Reports, ImportExport, Settings
     ├── components/     # Layout, Sidebar, UI primitives
     └── lib/            # Zustand store, utilities
 ```
@@ -84,9 +102,23 @@ src/
 | Database | SQLite via [sql.js](https://sql-js.github.io/sql.js/) (pure WASM — no compilation) |
 | Charts | Apache ECharts |
 | AI Reports | Google Gemini API (`gemini-2.0-flash`) |
+| PDF output | Chromium `printToPDF` (no extra dependency) |
 | Build | electron-vite + electron-builder |
 
 ---
+
+## Sample Data
+
+A fully synthetic portfolio (7 groups, 28 students, 56 sessions across FYDP I–III and two semesters) ships
+in `sample-data/fydp-sample-portfolio.json`. Load it through **Import / Export → Import from JSON File** to
+explore the Analysis Portal and every document without entering real data. All names, student codes, emails
+and phone numbers in it are invented.
+
+To regenerate it (deterministic — same output every run):
+
+```bash
+node tools/generate-sample-data.mjs
+```
 
 ## First-Time Setup (in the app)
 
@@ -94,7 +126,9 @@ src/
    - Get a free API key from [Google AI Studio](https://aistudio.google.com/app/apikey)
 2. **Groups & Students** → Create a group (select the FYDP course) → Add students
 3. **Log Session** → Select a group → New Session → Mark attendance + enter notes
-4. **Reports** → Select a group → Generate report via Gemini → Edit → Export as HTML
+4. **Analysis Portal** → Review the portfolio and per-group analysis → Generate the attendance sheets,
+   group analysis or comprehensive dossier as PDF
+5. **AI Reports** → Select a group → Generate narrative report via Gemini → Edit → Export as PDF or HTML
 
 ---
 

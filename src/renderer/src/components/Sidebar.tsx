@@ -6,6 +6,7 @@ import {
   Users,
   ClipboardList,
   FileText,
+  BarChart3,
   ArrowLeftRight,
   Settings,
   GraduationCap
@@ -15,7 +16,8 @@ const navItems = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard, end: true },
   { to: '/groups', label: 'Groups & Students', icon: Users },
   { to: '/log', label: 'Log Session', icon: ClipboardList },
-  { to: '/reports', label: 'Reports', icon: FileText },
+  { to: '/analysis', label: 'Analysis Portal', icon: BarChart3 },
+  { to: '/reports', label: 'AI Reports', icon: FileText },
   { to: '/transfer', label: 'Import / Export', icon: ArrowLeftRight },
   { to: '/settings', label: 'Settings', icon: Settings }
 ]

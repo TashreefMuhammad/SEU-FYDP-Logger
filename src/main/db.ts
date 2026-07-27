@@ -90,9 +90,42 @@ export function closeDb(): void {
 
 // ── Schema ────────────────────────────────────────────────────────────────────
 
-// Runs once on startup — safely adds new columns to existing databases
+// Runs once on startup — safely adds new columns to existing databases.
+// Each ALTER is independent: if the column already exists, sql.js throws and we ignore it.
+const MIGRATIONS: [table: string, column: string, definition: string][] = [
+  // Group / supervision metadata
+  ['groups', 'course_code', 'TEXT'],
+  ['groups', 'co_supervisor_name', 'TEXT'],
+  ['groups', 'co_supervisor_designation', 'TEXT'],
+  ['groups', 'min_required_sessions', 'INTEGER'],
+  ['groups', 'status', 'TEXT'],
+
+  // Student fields required by the departmental attendance sheet
+  ['students', 'program', 'TEXT'],
+  ['students', 'email', 'TEXT'],
+  ['students', 'mobile', 'TEXT'],
+
+  // Session fields required by the departmental attendance sheet
+  ['log_sessions', 'start_time', 'TEXT'],
+  ['log_sessions', 'end_time', 'TEXT'],
+  ['log_sessions', 'duration_minutes', 'INTEGER'],
+  ['log_sessions', 'topic', 'TEXT'],
+  ['log_sessions', 'session_kind', 'TEXT']
+]
+
 function migrate(): void {
-  try { _db.exec('ALTER TABLE groups ADD COLUMN course_code TEXT') } catch { /* already exists */ }
+  for (const [table, column, definition] of MIGRATIONS) {
+    try {
+      _db.exec(`ALTER TABLE ${table} ADD COLUMN ${column} ${definition}`)
+    } catch {
+      /* column already exists */
+    }
+  }
+  // Sensible defaults for rows that predate the new columns
+  try { _db.exec(`UPDATE groups SET min_required_sessions = 8 WHERE min_required_sessions IS NULL`) } catch { /* noop */ }
+  try { _db.exec(`UPDATE groups SET status = 'active' WHERE status IS NULL OR status = ''`) } catch { /* noop */ }
+  try { _db.exec(`UPDATE students SET program = 'B.Sc. in CSE' WHERE program IS NULL OR program = ''`) } catch { /* noop */ }
+  try { _db.exec(`UPDATE log_sessions SET duration_minutes = 60 WHERE duration_minutes IS NULL`) } catch { /* noop */ }
 }
 
 function initSchema(): void {
@@ -115,6 +148,10 @@ function initSchema(): void {
       course_code TEXT,
       semester TEXT,
       academic_year TEXT,
+      co_supervisor_name TEXT,
+      co_supervisor_designation TEXT,
+      min_required_sessions INTEGER DEFAULT 8,
+      status TEXT DEFAULT 'active',
       created_at TEXT DEFAULT CURRENT_TIMESTAMP
     );
 
@@ -122,6 +159,9 @@ function initSchema(): void {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       student_id TEXT NOT NULL,
       name TEXT NOT NULL,
+      program TEXT DEFAULT 'B.Sc. in CSE',
+      email TEXT,
+      mobile TEXT,
       group_id INTEGER NOT NULL,
       FOREIGN KEY (group_id) REFERENCES groups(id) ON DELETE CASCADE,
       UNIQUE(student_id, group_id)
@@ -133,6 +173,11 @@ function initSchema(): void {
       log_date TEXT NOT NULL,
       next_log_date TEXT,
       venue TEXT,
+      start_time TEXT,
+      end_time TEXT,
+      duration_minutes INTEGER DEFAULT 60,
+      topic TEXT,
+      session_kind TEXT DEFAULT 'regular',
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (group_id) REFERENCES groups(id) ON DELETE CASCADE
     );

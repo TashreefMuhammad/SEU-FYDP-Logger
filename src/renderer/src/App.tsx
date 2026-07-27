@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard'
 import GroupSetup from './pages/GroupSetup'
 import LogSession from './pages/LogSession'
 import Reports from './pages/Reports'
+import Analysis from './pages/Analysis'
 import ImportExport from './pages/ImportExport'
 import Settings from './pages/Settings'
 
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/groups" element={<GroupSetup />} />
           <Route path="/log" element={<LogSession />} />
+          <Route path="/analysis" element={<Analysis />} />
           <Route path="/reports" element={<Reports />} />
           <Route path="/transfer" element={<ImportExport />} />
           <Route path="/settings" element={<Settings />} />

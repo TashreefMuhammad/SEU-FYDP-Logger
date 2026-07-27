@@ -13,7 +13,7 @@ export function registerExportHandlers(): void {
     const fullData = {
       _meta: {
         exportedAt: new Date().toISOString(),
-        version: '1.0',
+        version: '2.0',
         app: 'SEU FYDP Logger'
       },
       faculty,
@@ -90,47 +90,93 @@ export function registerExportHandlers(): void {
 
       if (Array.isArray(data.groups)) {
         for (const g of data.groups) {
-          const existingGroup = get('SELECT id FROM groups WHERE id = ?', [g.id])
+          // Match on identity, not on the exported row id — ids differ across machines
+          const existingGroup = get(
+            `SELECT id FROM groups WHERE group_name = ? AND IFNULL(course_code,'') = IFNULL(?,'')
+             AND IFNULL(semester,'') = IFNULL(?,'')`,
+            [g.group_name, g.course_code ?? '', g.semester ?? '']
+          )
           let groupId: number
+
+          const groupFields = [
+            g.group_name,
+            g.project_title ?? null,
+            g.course_code ?? null,
+            g.semester ?? null,
+            g.academic_year ?? null,
+            g.co_supervisor_name ?? null,
+            g.co_supervisor_designation ?? null,
+            Number(g.min_required_sessions) || 8,
+            g.status ?? 'active'
+          ]
 
           if (existingGroup) {
             runTx(
-              `UPDATE groups SET group_name=?, project_title=?, semester=?, academic_year=? WHERE id=?`,
-              [g.group_name, g.project_title, g.semester, g.academic_year, g.id]
+              `UPDATE groups SET group_name=?, project_title=?, course_code=?, semester=?, academic_year=?,
+                                 co_supervisor_name=?, co_supervisor_designation=?, min_required_sessions=?, status=?
+               WHERE id=?`,
+              [...groupFields, existingGroup.id]
             )
-            groupId = g.id
+            groupId = existingGroup.id
           } else {
             groupId = runTx(
-              `INSERT INTO groups (group_name, project_title, semester, academic_year) VALUES (?,?,?,?)`,
-              [g.group_name, g.project_title, g.semester, g.academic_year]
+              `INSERT INTO groups (group_name, project_title, course_code, semester, academic_year,
+                                   co_supervisor_name, co_supervisor_designation, min_required_sessions, status)
+               VALUES (?,?,?,?,?,?,?,?,?)`,
+              groupFields
             )
           }
 
           if (Array.isArray(g.students)) {
             for (const s of g.students) {
               runTx(
-                `INSERT INTO students (student_id, name, group_id) VALUES (?,?,?)
-                 ON CONFLICT(student_id, group_id) DO UPDATE SET name=excluded.name`,
-                [s.student_id, s.name, groupId]
+                `INSERT INTO students (student_id, name, program, email, mobile, group_id) VALUES (?,?,?,?,?,?)
+                 ON CONFLICT(student_id, group_id) DO UPDATE SET
+                   name=excluded.name, program=excluded.program,
+                   email=excluded.email, mobile=excluded.mobile`,
+                [
+                  s.student_id,
+                  s.name,
+                  s.program ?? 'B.Sc. in CSE',
+                  s.email ?? null,
+                  s.mobile ?? null,
+                  groupId
+                ]
               )
             }
           }
 
           if (Array.isArray(g.sessions)) {
             for (const sess of g.sessions) {
-              const existingSession = get('SELECT id FROM log_sessions WHERE id = ?', [sess.id])
+              const existingSession = get(
+                'SELECT id FROM log_sessions WHERE group_id = ? AND log_date = ?',
+                [groupId, sess.log_date]
+              )
+              const sessionFields = [
+                sess.log_date,
+                sess.next_log_date ?? null,
+                sess.venue ?? null,
+                sess.start_time ?? null,
+                sess.end_time ?? null,
+                Number(sess.duration_minutes) || 60,
+                sess.topic ?? null,
+                sess.session_kind ?? 'regular'
+              ]
               let sessionId: number
 
               if (existingSession) {
                 runTx(
-                  `UPDATE log_sessions SET log_date=?, next_log_date=?, venue=? WHERE id=?`,
-                  [sess.log_date, sess.next_log_date, sess.venue, sess.id]
+                  `UPDATE log_sessions SET log_date=?, next_log_date=?, venue=?, start_time=?, end_time=?,
+                                           duration_minutes=?, topic=?, session_kind=? WHERE id=?`,
+                  [...sessionFields, existingSession.id]
                 )
-                sessionId = sess.id
+                sessionId = existingSession.id
               } else {
                 sessionId = runTx(
-                  `INSERT INTO log_sessions (group_id, log_date, next_log_date, venue) VALUES (?,?,?,?)`,
-                  [groupId, sess.log_date, sess.next_log_date, sess.venue]
+                  `INSERT INTO log_sessions (group_id, log_date, next_log_date, venue, start_time, end_time,
+                                             duration_minutes, topic, session_kind)
+                   VALUES (?,?,?,?,?,?,?,?,?)`,
+                  [groupId, ...sessionFields]
                 )
               }
 
@@ -147,10 +193,25 @@ export function registerExportHandlers(): void {
                      ON CONFLICT(session_id, student_id) DO UPDATE SET
                        present=excluded.present, work_done=excluded.work_done,
                        work_planned=excluded.work_planned, faculty_notes=excluded.faculty_notes`,
-                    [sessionId, student.id, sl.present, sl.work_done, sl.work_planned, sl.faculty_notes]
+                    [sessionId, student.id, sl.present ? 1 : 0, sl.work_done, sl.work_planned, sl.faculty_notes]
                   )
                 }
               }
+            }
+          }
+
+          if (Array.isArray(g.reports)) {
+            for (const r of g.reports) {
+              const existingReport = get(
+                'SELECT id FROM reports WHERE group_id = ? AND report_type = ? AND generated_at = ?',
+                [groupId, r.report_type, r.generated_at]
+              )
+              if (existingReport) continue
+              runTx(
+                `INSERT INTO reports (group_id, report_type, generated_content, edited_content, generated_at)
+                 VALUES (?,?,?,?,?)`,
+                [groupId, r.report_type, r.generated_content, r.edited_content ?? r.generated_content, r.generated_at]
+              )
             }
           }
         }

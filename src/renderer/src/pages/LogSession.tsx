@@ -35,11 +35,16 @@ export default function LogSession() {
 
   // Session dialog
   const [sessionDialog, setSessionDialog] = useState(false)
+  const [sessionError, setSessionError] = useState('')
   const [editingSession, setEditingSession] = useState<LogSession | null>(null)
   const [sessionForm, setSessionForm] = useState({
     log_date: todayIso(),
     next_log_date: '',
-    venue: ''
+    venue: '',
+    start_time: '10:00',
+    end_time: '11:00',
+    topic: '',
+    session_kind: 'regular'
   })
 
   useEffect(() => {
@@ -71,19 +76,40 @@ export default function LogSession() {
   // ── Session CRUD ──────────────────────────────────────────────────────────
   const openNewSession = () => {
     setEditingSession(null)
-    setSessionForm({ log_date: todayIso(), next_log_date: '', venue: '' })
+    setSessionForm({
+      log_date: todayIso(),
+      next_log_date: '',
+      venue: '',
+      start_time: '10:00',
+      end_time: '11:00',
+      topic: '',
+      session_kind: 'regular'
+    })
     setSessionDialog(true)
   }
 
   const openEditSession = (s: LogSession, e: React.MouseEvent) => {
     e.stopPropagation()
     setEditingSession(s)
-    setSessionForm({ log_date: s.log_date, next_log_date: s.next_log_date ?? '', venue: s.venue ?? '' })
+    setSessionForm({
+      log_date: s.log_date,
+      next_log_date: s.next_log_date ?? '',
+      venue: s.venue ?? '',
+      start_time: s.start_time ?? '10:00',
+      end_time: s.end_time ?? '11:00',
+      topic: s.topic ?? '',
+      session_kind: s.session_kind ?? 'regular'
+    })
     setSessionDialog(true)
   }
 
   const saveSession = async () => {
     if (!selectedGroupId) return
+    if (!sessionForm.topic.trim()) {
+      setSessionError('Topic of discussion is required — it is a column on the departmental attendance sheet.')
+      return
+    }
+    setSessionError('')
     if (editingSession) {
       await window.api.updateSession(editingSession.id, { ...sessionForm, group_id: selectedGroupId })
     } else {
@@ -204,11 +230,22 @@ export default function LogSession() {
                       />
                       <div className="flex-1">
                         <p className="font-semibold text-sm text-gray-900">
-                          Session: {formatDate(sess.log_date)}
+                          {formatDate(sess.log_date)}
+                          {sess.start_time && (
+                            <span className="ml-2 font-normal text-gray-500">
+                              {sess.start_time}–{sess.end_time}
+                            </span>
+                          )}
+                          {sess.topic && <span className="font-normal text-gray-700"> · {sess.topic}</span>}
                         </p>
                         {sess.next_log_date && (
                           <p className="text-xs text-gray-500">
                             Next session: {formatDate(sess.next_log_date)}
+                          </p>
+                        )}
+                        {!sess.topic && (
+                          <p className="text-xs text-yellow-600">
+                            No topic recorded — required on the attendance sheet.
                           </p>
                         )}
                       </div>
@@ -362,18 +399,59 @@ export default function LogSession() {
         title={editingSession ? 'Edit Session' : 'New Log Session'}
       >
         <div className="flex flex-col gap-4">
-          <Input
-            label="Log Date *"
-            type="date"
-            value={sessionForm.log_date}
-            onChange={(e) => setSessionForm({ ...sessionForm, log_date: e.target.value })}
-          />
-          <Input
-            label="Next Session Date"
-            type="date"
-            value={sessionForm.next_log_date}
-            onChange={(e) => setSessionForm({ ...sessionForm, next_log_date: e.target.value })}
-          />
+          {sessionError && <Alert variant="error">{sessionError}</Alert>}
+          <div className="grid grid-cols-3 gap-3">
+            <Input
+              label="Log Date *"
+              type="date"
+              value={sessionForm.log_date}
+              onChange={(e) => setSessionForm({ ...sessionForm, log_date: e.target.value })}
+            />
+            <Input
+              label="Start Time"
+              type="time"
+              value={sessionForm.start_time}
+              onChange={(e) => setSessionForm({ ...sessionForm, start_time: e.target.value })}
+            />
+            <Input
+              label="End Time"
+              type="time"
+              value={sessionForm.end_time}
+              onChange={(e) => setSessionForm({ ...sessionForm, end_time: e.target.value })}
+            />
+          </div>
+          <div className="flex flex-col gap-1">
+            <Input
+              label="Topic of Discussion *"
+              value={sessionForm.topic}
+              onChange={(e) => setSessionForm({ ...sessionForm, topic: e.target.value })}
+              placeholder="e.g. Idea finalization with methodology confirmation"
+            />
+            <p className="text-xs text-gray-400">
+              Printed verbatim in the Topics of Discussion column of the attendance sheet.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <Input
+              label="Next Session Date"
+              type="date"
+              value={sessionForm.next_log_date}
+              onChange={(e) => setSessionForm({ ...sessionForm, next_log_date: e.target.value })}
+            />
+            <div className="flex flex-col gap-1">
+              <label className="text-sm font-medium text-gray-700">Session Type</label>
+              <select
+                value={sessionForm.session_kind}
+                onChange={(e) => setSessionForm({ ...sessionForm, session_kind: e.target.value })}
+                className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="regular">Regular supervision meeting</option>
+                <option value="milestone">Milestone / progress review</option>
+                <option value="presentation">Presentation rehearsal</option>
+                <option value="remedial">Remedial / catch-up meeting</option>
+              </select>
+            </div>
+          </div>
           <Input
             label="Venue / Location"
             value={sessionForm.venue}

@@ -31,16 +31,41 @@ export function registerDbHandlers(): void {
 
   ipcMain.handle('groups:create', (_e, data) => {
     const id = run(
-      `INSERT INTO groups (group_name, project_title, course_code, semester, academic_year) VALUES (?,?,?,?,?)`,
-      [data.group_name, data.project_title, data.course_code, data.semester, data.academic_year]
+      `INSERT INTO groups (group_name, project_title, course_code, semester, academic_year,
+                           co_supervisor_name, co_supervisor_designation, min_required_sessions, status)
+       VALUES (?,?,?,?,?,?,?,?,?)`,
+      [
+        data.group_name,
+        data.project_title,
+        data.course_code,
+        data.semester,
+        data.academic_year,
+        data.co_supervisor_name ?? null,
+        data.co_supervisor_designation ?? null,
+        Number(data.min_required_sessions) || 8,
+        data.status ?? 'active'
+      ]
     )
     return get('SELECT * FROM groups WHERE id = ?', [id])
   })
 
   ipcMain.handle('groups:update', (_e, id, data) => {
     run(
-      `UPDATE groups SET group_name=?, project_title=?, course_code=?, semester=?, academic_year=? WHERE id=?`,
-      [data.group_name, data.project_title, data.course_code, data.semester, data.academic_year, id]
+      `UPDATE groups SET group_name=?, project_title=?, course_code=?, semester=?, academic_year=?,
+                         co_supervisor_name=?, co_supervisor_designation=?, min_required_sessions=?, status=?
+       WHERE id=?`,
+      [
+        data.group_name,
+        data.project_title,
+        data.course_code,
+        data.semester,
+        data.academic_year,
+        data.co_supervisor_name ?? null,
+        data.co_supervisor_designation ?? null,
+        Number(data.min_required_sessions) || 8,
+        data.status ?? 'active',
+        id
+      ]
     )
     return get('SELECT * FROM groups WHERE id = ?', [id])
   })
@@ -57,14 +82,31 @@ export function registerDbHandlers(): void {
 
   ipcMain.handle('students:add', (_e, data) => {
     const id = run(
-      `INSERT INTO students (student_id, name, group_id) VALUES (?,?,?)`,
-      [data.student_id, data.name, data.group_id]
+      `INSERT INTO students (student_id, name, program, email, mobile, group_id) VALUES (?,?,?,?,?,?)`,
+      [
+        data.student_id,
+        data.name,
+        data.program ?? 'B.Sc. in CSE',
+        data.email ?? autoEmail(data.student_id),
+        data.mobile ?? null,
+        data.group_id
+      ]
     )
     return get('SELECT * FROM students WHERE id = ?', [id])
   })
 
   ipcMain.handle('students:update', (_e, id, data) => {
-    run(`UPDATE students SET student_id=?, name=? WHERE id=?`, [data.student_id, data.name, id])
+    run(
+      `UPDATE students SET student_id=?, name=?, program=?, email=?, mobile=? WHERE id=?`,
+      [
+        data.student_id,
+        data.name,
+        data.program ?? 'B.Sc. in CSE',
+        data.email ?? autoEmail(data.student_id),
+        data.mobile ?? null,
+        id
+      ]
+    )
     return get('SELECT * FROM students WHERE id = ?', [id])
   })
 
@@ -82,8 +124,20 @@ export function registerDbHandlers(): void {
     let sessionId = 0
     transaction(() => {
       sessionId = runTx(
-        `INSERT INTO log_sessions (group_id, log_date, next_log_date, venue) VALUES (?,?,?,?)`,
-        [data.group_id, data.log_date, data.next_log_date, data.venue]
+        `INSERT INTO log_sessions (group_id, log_date, next_log_date, venue,
+                                   start_time, end_time, duration_minutes, topic, session_kind)
+         VALUES (?,?,?,?,?,?,?,?,?)`,
+        [
+          data.group_id,
+          data.log_date,
+          data.next_log_date,
+          data.venue,
+          data.start_time ?? null,
+          data.end_time ?? null,
+          resolveDuration(data),
+          data.topic ?? null,
+          data.session_kind ?? 'regular'
+        ]
       )
       const students = all('SELECT id FROM students WHERE group_id = ?', [data.group_id])
       for (const s of students) {
@@ -98,8 +152,20 @@ export function registerDbHandlers(): void {
 
   ipcMain.handle('sessions:update', (_e, id, data) => {
     run(
-      `UPDATE log_sessions SET log_date=?, next_log_date=?, venue=? WHERE id=?`,
-      [data.log_date, data.next_log_date, data.venue, id]
+      `UPDATE log_sessions SET log_date=?, next_log_date=?, venue=?,
+                               start_time=?, end_time=?, duration_minutes=?, topic=?, session_kind=?
+       WHERE id=?`,
+      [
+        data.log_date,
+        data.next_log_date,
+        data.venue,
+        data.start_time ?? null,
+        data.end_time ?? null,
+        resolveDuration(data),
+        data.topic ?? null,
+        data.session_kind ?? 'regular',
+        id
+      ]
     )
     return get('SELECT * FROM log_sessions WHERE id = ?', [id])
   })
@@ -178,4 +244,25 @@ export function registerDbHandlers(): void {
     )
     return true
   })
+}
+
+// ── Helpers ─────────────────────────────────────────────────────────────────
+
+/** SEU convention: <13-digit student code>@seu.edu.bd */
+function autoEmail(studentCode?: string): string | null {
+  return studentCode && /^\d{13}$/.test(studentCode) ? `${studentCode}@seu.edu.bd` : null
+}
+
+/** Duration is derived from start/end when both are present, else taken as given */
+function resolveDuration(data: any): number {
+  const explicit = Number(data.duration_minutes)
+  if (data.start_time && data.end_time) {
+    const [sh, sm] = String(data.start_time).split(':').map(Number)
+    const [eh, em] = String(data.end_time).split(':').map(Number)
+    if ([sh, sm, eh, em].every((n) => Number.isFinite(n))) {
+      const mins = eh * 60 + em - (sh * 60 + sm)
+      if (mins > 0) return mins
+    }
+  }
+  return Number.isFinite(explicit) && explicit > 0 ? explicit : 60
 }

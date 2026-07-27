@@ -5,6 +5,8 @@ import { initDb, closeDb } from './db'
 import { registerDbHandlers } from './ipc/db-handlers'
 import { registerGeminiHandlers } from './ipc/gemini-handlers'
 import { registerExportHandlers } from './ipc/export-handlers'
+import { registerAnalysisHandlers } from './ipc/analysis-handlers'
+import { registerPdfHandlers } from './ipc/pdf-handlers'
 
 function createWindow(): BrowserWindow {
   const win = new BrowserWindow({
@@ -52,6 +54,8 @@ app.whenReady().then(async () => {
   registerDbHandlers()
   registerGeminiHandlers()
   registerExportHandlers()
+  registerAnalysisHandlers()
+  registerPdfHandlers()
 
   createWindow()
 

@@ -1,22 +1,26 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useStore } from '@/lib/store'
-import { formatDate } from '@/lib/utils'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Alert } from '@/components/ui/alert'
-import { Users, ClipboardList, FileText, Plus, AlertCircle } from 'lucide-react'
+import { Users, ClipboardList, Plus, AlertCircle, BarChart3, AlertTriangle } from 'lucide-react'
+import type { PortfolioAnalytics } from '@/types'
 
 export default function Dashboard() {
   const { faculty, groups, setGroups, setFaculty } = useStore()
+  const [portfolio, setPortfolio] = useState<PortfolioAnalytics | null>(null)
 
   useEffect(() => {
     window.api.getFaculty().then(setFaculty)
     window.api.getGroups().then(setGroups)
+    window.api.getPortfolioAnalysis().then(setPortfolio)
   }, [])
 
   const totalGroups = groups.length
+  const statFor = (id: number) => portfolio?.groups.find((g) => g.group.id === id)
+  const openExceptions = portfolio?.risk_register.length ?? 0
 
   return (
     <div className="p-6 max-w-5xl mx-auto">
@@ -39,37 +43,61 @@ export default function Dashboard() {
       </div>
 
       {/* Stats row */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-5 gap-3 mb-6">
         <Card>
-          <CardContent className="flex items-center gap-4 py-5">
-            <div className="p-3 bg-blue-100 rounded-lg">
-              <Users size={20} className="text-blue-600" />
+          <CardContent className="flex items-center gap-3 py-4">
+            <div className="p-2.5 bg-blue-100 rounded-lg">
+              <Users size={18} className="text-blue-600" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900">{totalGroups}</p>
-              <p className="text-sm text-gray-500">Groups</p>
+              <p className="text-xl font-bold text-gray-900">{totalGroups}</p>
+              <p className="text-xs text-gray-500">Groups</p>
             </div>
           </CardContent>
         </Card>
         <Card>
-          <CardContent className="flex items-center gap-4 py-5">
-            <div className="p-3 bg-green-100 rounded-lg">
-              <ClipboardList size={20} className="text-green-600" />
+          <CardContent className="flex items-center gap-3 py-4">
+            <div className="p-2.5 bg-indigo-100 rounded-lg">
+              <Users size={18} className="text-indigo-600" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900">—</p>
-              <p className="text-sm text-gray-500">Total Log Sessions</p>
+              <p className="text-xl font-bold text-gray-900">{portfolio?.totals.students ?? '—'}</p>
+              <p className="text-xs text-gray-500">Students</p>
             </div>
           </CardContent>
         </Card>
         <Card>
-          <CardContent className="flex items-center gap-4 py-5">
-            <div className="p-3 bg-purple-100 rounded-lg">
-              <FileText size={20} className="text-purple-600" />
+          <CardContent className="flex items-center gap-3 py-4">
+            <div className="p-2.5 bg-green-100 rounded-lg">
+              <ClipboardList size={18} className="text-green-600" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900">—</p>
-              <p className="text-sm text-gray-500">Reports Generated</p>
+              <p className="text-xl font-bold text-gray-900">{portfolio?.totals.sessions ?? '—'}</p>
+              <p className="text-xs text-gray-500">Sessions logged</p>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="flex items-center gap-3 py-4">
+            <div className="p-2.5 bg-purple-100 rounded-lg">
+              <BarChart3 size={18} className="text-purple-600" />
+            </div>
+            <div>
+              <p className="text-xl font-bold text-gray-900">
+                {portfolio ? `${portfolio.totals.avg_attendance_pct}%` : '—'}
+              </p>
+              <p className="text-xs text-gray-500">Mean attendance</p>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="flex items-center gap-3 py-4">
+            <div className={`p-2.5 rounded-lg ${openExceptions ? 'bg-yellow-100' : 'bg-gray-100'}`}>
+              <AlertTriangle size={18} className={openExceptions ? 'text-yellow-600' : 'text-gray-400'} />
+            </div>
+            <div>
+              <p className="text-xl font-bold text-gray-900">{portfolio ? openExceptions : '—'}</p>
+              <p className="text-xs text-gray-500">Open exceptions</p>
             </div>
           </CardContent>
         </Card>
@@ -107,7 +135,9 @@ export default function Dashboard() {
                   <th className="text-left px-6 py-3 font-medium text-gray-500">Course</th>
                   <th className="text-left px-6 py-3 font-medium text-gray-500">Project Title</th>
                   <th className="text-left px-6 py-3 font-medium text-gray-500">Semester</th>
-                  <th className="text-left px-6 py-3 font-medium text-gray-500">Created</th>
+                  <th className="text-right px-3 py-3 font-medium text-gray-500">Sessions</th>
+                  <th className="text-right px-3 py-3 font-medium text-gray-500">Attendance</th>
+                  <th className="text-left px-3 py-3 font-medium text-gray-500">Status</th>
                   <th className="px-6 py-3" />
                 </tr>
               </thead>
@@ -126,13 +156,49 @@ export default function Dashboard() {
                     <td className="px-6 py-3 text-gray-600">
                       {g.semester || <span className="text-gray-300">—</span>}
                     </td>
-                    <td className="px-6 py-3 text-gray-500">{formatDate(g.created_at)}</td>
+                    <td className="px-3 py-3 text-right text-gray-700">
+                      {statFor(g.id) ? (
+                        <>
+                          {statFor(g.id)!.sessions_held}
+                          <span className="text-gray-300">/{statFor(g.id)!.group.min_required_sessions}</span>
+                        </>
+                      ) : (
+                        <span className="text-gray-300">—</span>
+                      )}
+                    </td>
+                    <td className="px-3 py-3 text-right text-gray-700">
+                      {statFor(g.id) ? `${statFor(g.id)!.group_attendance_pct}%` : <span className="text-gray-300">—</span>}
+                    </td>
+                    <td className="px-3 py-3">
+                      {statFor(g.id) ? (
+                        <Badge
+                          variant={
+                            statFor(g.id)!.risk === 'high'
+                              ? 'danger'
+                              : statFor(g.id)!.risk === 'moderate'
+                                ? 'warning'
+                                : 'success'
+                          }
+                        >
+                          {statFor(g.id)!.risk}
+                        </Badge>
+                      ) : (
+                        <span className="text-gray-300">—</span>
+                      )}
+                    </td>
                     <td className="px-6 py-3">
-                      <Link to={`/log?group=${g.id}`}>
-                        <Button size="sm" variant="ghost">
-                          Log Session
-                        </Button>
-                      </Link>
+                      <div className="flex gap-1 justify-end">
+                        <Link to={`/log?group=${g.id}`}>
+                          <Button size="sm" variant="ghost">
+                            Log Session
+                          </Button>
+                        </Link>
+                        <Link to="/analysis">
+                          <Button size="sm" variant="ghost">
+                            Analyse
+                          </Button>
+                        </Link>
+                      </div>
                     </td>
                   </tr>
                 ))}

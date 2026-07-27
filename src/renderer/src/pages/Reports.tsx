@@ -15,6 +15,7 @@ import {
   Pencil,
   Save,
   Loader2,
+  Printer,
   BarChart2,
   Users,
   ClipboardCheck,
@@ -136,7 +137,12 @@ export default function Reports() {
 
   const exportReport = async (r: Report) => {
     const result = await window.api.exportReportAsHtml(r.id)
-    if (!result.success) setError(result.message ?? 'Export failed.')
+    if (!result.success && result.message !== 'Cancelled') setError(result.message ?? 'Export failed.')
+  }
+
+  const exportReportPdf = async (r: Report) => {
+    const result = await window.api.exportReportAsPdf(r.id)
+    if (!result.success && result.message !== 'Cancelled') setError(result.message ?? 'Export failed.')
   }
 
   const selectedGroup = groups.find((g) => g.id === selectedGroupId)
@@ -158,7 +164,12 @@ export default function Reports() {
 
   return (
     <div className="p-6 max-w-5xl mx-auto">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Reports</h1>
+      <h1 className="text-2xl font-bold text-gray-900 mb-2">AI Reports</h1>
+      <Alert variant="info" className="mb-5">
+        These reports are drafted by Gemini from your log entries and are useful as narrative summaries.
+        For figures that go in front of a board or an accreditation panel, use the{' '}
+        <strong>Analysis Portal</strong>, which computes everything arithmetically from the logbook.
+      </Alert>
 
       {/* Group selector */}
       <Card className="mb-5">
@@ -265,6 +276,9 @@ export default function Reports() {
                             <div className="flex gap-2 justify-end">
                               <Button size="sm" variant="ghost" onClick={() => openEdit(r)}>
                                 <Pencil size={13} /> Edit
+                              </Button>
+                              <Button size="sm" variant="ghost" onClick={() => exportReportPdf(r)}>
+                                <Printer size={13} /> PDF
                               </Button>
                               <Button size="sm" variant="ghost" onClick={() => exportReport(r)}>
                                 <Download size={13} /> HTML

@@ -29,8 +29,21 @@ const emptyGroup: GroupForm = {
   project_title: '',
   course_code: '',
   semester: '',
-  academic_year: ''
+  academic_year: '',
+  co_supervisor_name: '',
+  co_supervisor_designation: '',
+  min_required_sessions: 8,
+  status: 'active'
 }
+
+const emptyStudent = (groupId: number): StudentForm => ({
+  student_id: '',
+  name: '',
+  program: 'B.Sc. in CSE',
+  email: '',
+  mobile: '',
+  group_id: groupId
+})
 
 export default function GroupSetup() {
   const { groups, setGroups, selectedGroupId, setSelectedGroupId, students, setStudents } = useStore()
@@ -46,7 +59,7 @@ export default function GroupSetup() {
   // Student dialog
   const [studentDialog, setStudentDialog] = useState(false)
   const [editingStudent, setEditingStudent] = useState<Student | null>(null)
-  const [studentForm, setStudentForm] = useState<StudentForm>({ student_id: '', name: '', group_id: 0 })
+  const [studentForm, setStudentForm] = useState<StudentForm>(emptyStudent(0))
   const [studentError, setStudentError] = useState('')
 
   useEffect(() => {
@@ -74,7 +87,17 @@ export default function GroupSetup() {
 
   const openEditGroup = (g: Group) => {
     setEditingGroup(g)
-    setGroupForm({ group_name: g.group_name, project_title: g.project_title, course_code: g.course_code ?? '', semester: g.semester, academic_year: g.academic_year })
+    setGroupForm({
+      group_name: g.group_name,
+      project_title: g.project_title,
+      course_code: g.course_code ?? '',
+      semester: g.semester,
+      academic_year: g.academic_year,
+      co_supervisor_name: g.co_supervisor_name ?? '',
+      co_supervisor_designation: g.co_supervisor_designation ?? '',
+      min_required_sessions: g.min_required_sessions ?? 8,
+      status: g.status ?? 'active'
+    })
     setGroupError('')
     setGroupDialog(true)
   }
@@ -82,6 +105,10 @@ export default function GroupSetup() {
   const saveGroup = async () => {
     if (!groupForm.group_name.trim()) {
       setGroupError('Group name is required.')
+      return
+    }
+    if (!groupForm.course_code) {
+      setGroupError('Select the FYDP course — attendance sheets and course caps depend on it.')
       return
     }
     if (editingGroup) {
@@ -105,14 +132,21 @@ export default function GroupSetup() {
   // ── Student CRUD ──────────────────────────────────────────────────────────
   const openNewStudent = (groupId: number) => {
     setEditingStudent(null)
-    setStudentForm({ student_id: '', name: '', group_id: groupId })
+    setStudentForm(emptyStudent(groupId))
     setStudentError('')
     setStudentDialog(true)
   }
 
   const openEditStudent = (s: Student) => {
     setEditingStudent(s)
-    setStudentForm({ student_id: s.student_id, name: s.name, group_id: s.group_id })
+    setStudentForm({
+      student_id: s.student_id,
+      name: s.name,
+      program: s.program ?? 'B.Sc. in CSE',
+      email: s.email ?? '',
+      mobile: s.mobile ?? '',
+      group_id: s.group_id
+    })
     setStudentError('')
     setStudentDialog(true)
   }
@@ -199,6 +233,9 @@ export default function GroupSetup() {
                       <p className="text-sm font-medium text-gray-700 flex items-center gap-2">
                         <Users size={14} />
                         Students ({gStudents.length})
+                        {gStudents.length > 0 && (gStudents.length < 3 || gStudents.length > 5) && (
+                          <Badge variant="warning">outside 3–5 (Sec. 8)</Badge>
+                        )}
                       </p>
                       <Button size="sm" variant="outline" onClick={() => openNewStudent(g.id)}>
                         <UserPlus size={13} /> Add Student
@@ -215,6 +252,8 @@ export default function GroupSetup() {
                           <tr className="text-left text-xs text-gray-500 border-b border-gray-100">
                             <th className="pb-2 font-medium">Student ID</th>
                             <th className="pb-2 font-medium">Name</th>
+                            <th className="pb-2 font-medium">Email</th>
+                            <th className="pb-2 font-medium">Mobile</th>
                             <th className="pb-2" />
                           </tr>
                         </thead>
@@ -223,6 +262,8 @@ export default function GroupSetup() {
                             <tr key={s.id} className="border-b border-gray-50">
                               <td className="py-2 font-mono text-gray-700">{s.student_id}</td>
                               <td className="py-2 text-gray-800">{s.name}</td>
+                              <td className="py-2 text-gray-500 text-xs">{s.email || '—'}</td>
+                              <td className="py-2 text-gray-500 text-xs">{s.mobile || '—'}</td>
                               <td className="py-2 flex gap-1 justify-end">
                                 <Button size="sm" variant="ghost" onClick={() => openEditStudent(s)}>
                                   <Pencil size={12} />
@@ -293,6 +334,47 @@ export default function GroupSetup() {
               placeholder="e.g. 2024-25"
             />
           </div>
+          <div className="grid grid-cols-2 gap-4">
+            <Input
+              label="Co-Supervisor (optional)"
+              value={groupForm.co_supervisor_name}
+              onChange={(e) => setGroupForm({ ...groupForm, co_supervisor_name: e.target.value })}
+              placeholder="Lecturer assigned under Sec. 7"
+            />
+            <Input
+              label="Co-Supervisor Designation"
+              value={groupForm.co_supervisor_designation}
+              onChange={(e) => setGroupForm({ ...groupForm, co_supervisor_designation: e.target.value })}
+              placeholder="e.g. Lecturer"
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="flex flex-col gap-1">
+              <Input
+                label="Minimum sessions this semester"
+                type="number"
+                min={1}
+                max={30}
+                value={String(groupForm.min_required_sessions)}
+                onChange={(e) =>
+                  setGroupForm({ ...groupForm, min_required_sessions: Number(e.target.value) || 8 })
+                }
+              />
+              <p className="text-xs text-gray-400">Used for the Sec. 10 monitoring check.</p>
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className="text-sm font-medium text-gray-700">Status</label>
+              <select
+                value={groupForm.status}
+                onChange={(e) => setGroupForm({ ...groupForm, status: e.target.value })}
+                className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="active">Active</option>
+                <option value="completed">Completed</option>
+                <option value="withdrawn">Withdrawn</option>
+              </select>
+            </div>
+          </div>
           <div className="flex gap-3 justify-end pt-2">
             <Button variant="outline" onClick={() => setGroupDialog(false)}>Cancel</Button>
             <Button onClick={saveGroup}>
@@ -314,7 +396,16 @@ export default function GroupSetup() {
             <Input
               label="Student ID * (13 digits)"
               value={studentForm.student_id}
-              onChange={(e) => setStudentForm({ ...studentForm, student_id: e.target.value.replace(/\D/g, '').slice(0, 13) })}
+              onChange={(e) => {
+                const code = e.target.value.replace(/\D/g, '').slice(0, 13)
+                const autofilled =
+                  !studentForm.email || /^\d{0,13}@seu\.edu\.bd$/.test(studentForm.email)
+                setStudentForm({
+                  ...studentForm,
+                  student_id: code,
+                  email: autofilled && code.length === 13 ? `${code}@seu.edu.bd` : studentForm.email
+                })
+              }}
               placeholder="e.g. 2021160001234"
               maxLength={13}
             />
@@ -326,6 +417,30 @@ export default function GroupSetup() {
             onChange={(e) => setStudentForm({ ...studentForm, name: e.target.value })}
             placeholder="e.g. Rashed Karim"
           />
+          <div className="grid grid-cols-2 gap-4">
+            <Input
+              label="Program"
+              value={studentForm.program}
+              onChange={(e) => setStudentForm({ ...studentForm, program: e.target.value })}
+              placeholder="B.Sc. in CSE"
+            />
+            <Input
+              label="Mobile"
+              value={studentForm.mobile}
+              onChange={(e) => setStudentForm({ ...studentForm, mobile: e.target.value })}
+              placeholder="+880 1XXXXXXXXX"
+            />
+          </div>
+          <Input
+            label="Email"
+            type="email"
+            value={studentForm.email}
+            onChange={(e) => setStudentForm({ ...studentForm, email: e.target.value })}
+            placeholder="2021160001234@seu.edu.bd"
+          />
+          <p className="text-xs text-gray-400 -mt-2">
+            Program, email and mobile appear on the departmental attendance sheet.
+          </p>
           <div className="flex gap-3 justify-end pt-2">
             <Button variant="outline" onClick={() => setStudentDialog(false)}>Cancel</Button>
             <Button onClick={saveStudent}>

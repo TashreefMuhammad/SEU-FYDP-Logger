@@ -44,6 +44,21 @@ const api = {
   generateReport: (type: string, payload: any) =>
     ipcRenderer.invoke('gemini:generate', type, payload),
 
+  // Analysis (deterministic, computed in the main process)
+  getGroupAnalysis: (groupId: number) => ipcRenderer.invoke('analysis:group', groupId),
+  getPortfolioAnalysis: () => ipcRenderer.invoke('analysis:portfolio'),
+  getPolicy: () => ipcRenderer.invoke('analysis:policy'),
+
+  // PDF documents
+  exportAttendanceSheets: (groupId: number, options?: any) =>
+    ipcRenderer.invoke('pdf:attendanceSheets', groupId, options ?? {}),
+  exportAllAttendanceSheets: (options?: any) =>
+    ipcRenderer.invoke('pdf:allAttendanceSheets', options ?? {}),
+  exportGroupAnalysisPdf: (groupId: number, options?: any) =>
+    ipcRenderer.invoke('pdf:groupAnalysis', groupId, options ?? {}),
+  exportDossierPdf: (options?: any) => ipcRenderer.invoke('pdf:dossier', options ?? {}),
+  exportReportAsPdf: (reportId: number) => ipcRenderer.invoke('pdf:report', reportId),
+
   // Import/Export
   exportToJson: () => ipcRenderer.invoke('export:toJson'),
   importFromJson: () => ipcRenderer.invoke('export:fromJson'),
